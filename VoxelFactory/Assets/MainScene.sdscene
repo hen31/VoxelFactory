@@ -11,11 +11,9 @@ Hierarchy:
         - ref!! aa3faa85-71b6-4af8-9a16-3b2a836304f4
         - ref!! 4749fe22-faaa-4136-9011-2337b0990e2c
         - ref!! b1a43773-4c88-4c3d-8544-5faca1fee913
-        - ref!! e0570a55-6664-4d2a-9c8b-00f482bc6afc
-        - ref!! a0ca1d6f-2da1-4b2b-a257-ff6600c66de9
-        - ref!! b8b862fd-0b84-45da-9a4d-adc30a262189
-        - ref!! a2c40520-353b-41af-b406-0def8a661328
         - ref!! 4164c470-4779-4e4e-ab5a-39c5ebe11742
+        - ref!! c78d1eba-b594-4ef1-b4d7-9bfe1be37f49
+        - ref!! a0a738b9-1fe1-472a-aeab-f8248153460c
     Parts:
         -   Entity:
                 Id: 38e7d61c-d827-4bec-88d8-7c25367969eb
@@ -75,42 +73,18 @@ Hierarchy:
                         Model: b13eef01-ac5f-42f0-919d-5b684156df73:Ground
                         Materials:
                             6a5db4fdc59ace9e4f81af78db242de4~0: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
-        -   Folder: null
-            Entity:
-                Id: a0ca1d6f-2da1-4b2b-a257-ff6600c66de9
-                Name: ChunkMesh
+        -   Entity:
+                Id: a0a738b9-1fe1-472a-aeab-f8248153460c
+                Name: VoxelGameState
                 Components:
-                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
-                        Id: f2b1cdf9-c26e-404d-968c-d2ec7db90d5c
-                        Position: {X: 0.0, Y: 0.0, Z: 16.0}
+                    258fa8acc0c87b74b07f66ff3bd7818d: !TransformComponent
+                        Id: 66acf5c3-c195-49e2-b575-037ca73d4c1d
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
-                        Id: 102ba63f-b740-45cf-9aad-355187e14f08
-                        Model: null
-                        Materials: {}
-                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
-                        Id: 2753803d-5129-499a-9149-6dc83c324fda
-                        VoxelSize: 1.0
-        -   Folder: null
-            Entity:
-                Id: a2c40520-353b-41af-b406-0def8a661328
-                Name: ChunkMesh
-                Components:
-                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
-                        Id: 8360fecb-8e8e-4f11-925b-309309a6736a
-                        Position: {X: 16.0, Y: 0.0, Z: 16.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
-                        Id: c39c679d-3304-4d4e-9f39-2aeb53b11113
-                        Model: null
-                        Materials: {}
-                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
-                        Id: 7b468afc-3d87-477d-bdef-8cf22248f86f
-                        VoxelSize: 1.0
+                    88c4ef8874222ef03aefdb8d8d6a3d84: !TurtleGames.VoxelEngine.VoxelGameState,TurtleGames.VoxelEngine
+                        Id: 0d38902d-47a3-4d4c-a55e-fed50074d1fc
         -   Entity:
                 Id: aa3faa85-71b6-4af8-9a16-3b2a836304f4
                 Name: Skybox
@@ -143,24 +117,6 @@ Hierarchy:
                         Enabled: false
                         Model: f610a7c3-e281-4ec7-9168-0b6a05fe18ce:Sphere
                         Materials: {}
-        -   Folder: null
-            Entity:
-                Id: b8b862fd-0b84-45da-9a4d-adc30a262189
-                Name: ChunkMesh
-                Components:
-                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
-                        Id: 2340eef0-3800-4864-b83d-3db87264b185
-                        Position: {X: 16.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
-                        Id: 9769dc53-3438-4d17-ba75-f88461a4dcad
-                        Model: null
-                        Materials: {}
-                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
-                        Id: 54266161-2cbc-4cff-8eb3-d1aad7ead4f7
-                        VoxelSize: 1.0
         -   Entity:
                 Id: c5727716-9b89-45a5-a3cc-5854921c5584
                 Name: Directional light
@@ -187,19 +143,20 @@ Hierarchy:
                                 BiasParameters: {}
                         Intensity: 20.0
         -   Entity:
-                Id: e0570a55-6664-4d2a-9c8b-00f482bc6afc
-                Name: ChunkMesh
+                Id: c78d1eba-b594-4ef1-b4d7-9bfe1be37f49
+                Name: ChunkSystem
                 Components:
-                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
-                        Id: 5c5bb723-bc8e-43b7-83c6-f05bc84ddf25
+                    28b79acecca5fedcfc3ebf8fee9a69dc: !TransformComponent
+                        Id: a3af20f3-cc99-4728-8487-aed45f2fc572
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
-                        Id: 118f2480-b121-49fe-89a1-eda6798c69bd
-                        Model: null
-                        Materials: {}
-                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
-                        Id: 23d70aaa-e39f-4c99-80a3-059b932bd9ca
-                        VoxelSize: 1.0
+                    19ee782d4626bff7c840e21d30592f78: !TurtleGames.VoxelEngine.ChunkSystemComponent,TurtleGames.VoxelEngine
+                        Id: cb8e03b3-7109-493f-b772-48249f1579d3
+                        Camera: ref!! ce0590e9-2579-4a57-a8cf-edcd0cf25dfd
+                        GameState: ref!! 0d38902d-47a3-4d4c-a55e-fed50074d1fc
+                        ChunkSize: {X: 16.0, Y: 16.0}
+                        Seed: 123
+                        ChunkHeight: 64
+                        Radius: 2
