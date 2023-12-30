@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>VoxelFactory</RootNamespace>
+
+    <OutputPath>..\Bin\Windows\$(Configuration)\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+
+    <!-- Force msbuild to check to rebuild this assembly instead of letting VS IDE guess -->
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    <Configurations>Debug;Release;Any CPU</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VoxelFactory\VoxelFactory.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,205 @@
+!SceneAsset
+Id: d039d58a-1374-48b9-b16b-cb946cc80939
+SerializedVersion: {Stride: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! 38e7d61c-d827-4bec-88d8-7c25367969eb
+        - ref!! c5727716-9b89-45a5-a3cc-5854921c5584
+        - ref!! aa3faa85-71b6-4af8-9a16-3b2a836304f4
+        - ref!! 4749fe22-faaa-4136-9011-2337b0990e2c
+        - ref!! b1a43773-4c88-4c3d-8544-5faca1fee913
+        - ref!! e0570a55-6664-4d2a-9c8b-00f482bc6afc
+        - ref!! a0ca1d6f-2da1-4b2b-a257-ff6600c66de9
+        - ref!! b8b862fd-0b84-45da-9a4d-adc30a262189
+        - ref!! a2c40520-353b-41af-b406-0def8a661328
+        - ref!! 4164c470-4779-4e4e-ab5a-39c5ebe11742
+    Parts:
+        -   Entity:
+                Id: 38e7d61c-d827-4bec-88d8-7c25367969eb
+                Name: Camera
+                Components:
+                    73e982da6ddb73264b8a65fdc4b3ed2d: !TransformComponent
+                        Id: fe2ec7dc-9d43-4378-a1b9-f9caec9c6be1
+                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    511c5bebb14f44c155d60fcbfe16c422: !CameraComponent
+                        Id: ce0590e9-2579-4a57-a8cf-edcd0cf25dfd
+                        Name: null
+                        Projection: Perspective
+                        Slot: 876034ca-217a-40b0-aabd-d56de1b52c6c
+                    6cb07d0847f47780e9881f3a631f9e9c: !VoxelFactory.BasicCameraController,VoxelFactory
+                        Id: bc865375-80a3-4e63-93e8-75421e313192
+                        Gamepad: false
+                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
+                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
+                        SpeedFactor: 5.0
+                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
+                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
+                        TouchRotationSpeed: {X: 1.0, Y: 0.7}
+        -   Entity:
+                Id: 4164c470-4779-4e4e-ab5a-39c5ebe11742
+                Name: GameProfiler
+                Components:
+                    9bdd10d3a10e574e92bf8abb49a797b8: !TransformComponent
+                        Id: e74c31aa-dd4e-43e1-94b9-dbd557c21f1b
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    ce563d23b93fed555b4d3214171c5686: !VoxelFactory.GameProfiler,VoxelFactory
+                        Id: 4fabf9a6-2c03-447d-bf4d-9f164b31c484
+                        Enabled: false
+                        TextColor: {R: 144, G: 238, B: 144, A: 255}
+                        RefreshTime: 500.0
+                        SortingMode: ByTime
+                        FilteringMode: GpuEvents
+                        ResultPage: 1
+        -   Entity:
+                Id: 4749fe22-faaa-4136-9011-2337b0990e2c
+                Name: Ground
+                Components:
+                    cc53ec923351d0c7a8afef8d0b2439d9: !TransformComponent
+                        Id: ea8be109-5832-4c28-a8a2-b4ff33205b74
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    35f77042edf18b87a7c6a9a042b75a97: !ModelComponent
+                        Id: 7fc660bb-db0d-40da-b57b-53292ea719f9
+                        Enabled: false
+                        Model: b13eef01-ac5f-42f0-919d-5b684156df73:Ground
+                        Materials:
+                            6a5db4fdc59ace9e4f81af78db242de4~0: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
+        -   Folder: null
+            Entity:
+                Id: a0ca1d6f-2da1-4b2b-a257-ff6600c66de9
+                Name: ChunkMesh
+                Components:
+                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
+                        Id: f2b1cdf9-c26e-404d-968c-d2ec7db90d5c
+                        Position: {X: 0.0, Y: 0.0, Z: 16.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
+                        Id: 102ba63f-b740-45cf-9aad-355187e14f08
+                        Model: null
+                        Materials: {}
+                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
+                        Id: 2753803d-5129-499a-9149-6dc83c324fda
+                        VoxelSize: 1.0
+        -   Folder: null
+            Entity:
+                Id: a2c40520-353b-41af-b406-0def8a661328
+                Name: ChunkMesh
+                Components:
+                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
+                        Id: 8360fecb-8e8e-4f11-925b-309309a6736a
+                        Position: {X: 16.0, Y: 0.0, Z: 16.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
+                        Id: c39c679d-3304-4d4e-9f39-2aeb53b11113
+                        Model: null
+                        Materials: {}
+                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
+                        Id: 7b468afc-3d87-477d-bdef-8cf22248f86f
+                        VoxelSize: 1.0
+        -   Entity:
+                Id: aa3faa85-71b6-4af8-9a16-3b2a836304f4
+                Name: Skybox
+                Components:
+                    62fdfe552d301e8136cabd4e3499c994: !TransformComponent
+                        Id: 64e9b6d3-8847-41a7-bb2c-149fa41a156f
+                        Position: {X: 0.0, Y: 2.0, Z: -2.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    3be398d64db964f4b185c3d4f7b8a456: !BackgroundComponent
+                        Id: a3983baa-45b9-467b-a769-c8f5bd4c3a9c
+                        Texture: 8016ad2a-913d-4c3f-b7a9-25db6eafaf05:Skybox texture
+                    82e70d5f7b4fc75e3cf5ab6c0c6c7fbf: !LightComponent
+                        Id: 7ebf4062-368d-470e-ade4-467c118cefb8
+                        Type: !LightSkybox
+                            Skybox: d79d7d1f-e789-4f1f-b274-ddaf37ae415f:Skybox
+        -   Entity:
+                Id: b1a43773-4c88-4c3d-8544-5faca1fee913
+                Name: Sphere
+                Components:
+                    2fd638d9ba7131f2ef61ac8ea41e1807: !TransformComponent
+                        Id: 9ba22ba9-4af8-4c75-b8cb-4d1fad5fb0a9
+                        Position: {X: 1.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    15434b51bc617d997c18d9b2e37fba7b: !ModelComponent
+                        Id: 00845597-7d91-486d-b0ab-546c951e170f
+                        Enabled: false
+                        Model: f610a7c3-e281-4ec7-9168-0b6a05fe18ce:Sphere
+                        Materials: {}
+        -   Folder: null
+            Entity:
+                Id: b8b862fd-0b84-45da-9a4d-adc30a262189
+                Name: ChunkMesh
+                Components:
+                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
+                        Id: 2340eef0-3800-4864-b83d-3db87264b185
+                        Position: {X: 16.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
+                        Id: 9769dc53-3438-4d17-ba75-f88461a4dcad
+                        Model: null
+                        Materials: {}
+                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
+                        Id: 54266161-2cbc-4cff-8eb3-d1aad7ead4f7
+                        VoxelSize: 1.0
+        -   Entity:
+                Id: c5727716-9b89-45a5-a3cc-5854921c5584
+                Name: Directional light
+                Components:
+                    3cd6c5f0bc093072a14f1e06b7ec679f: !TransformComponent
+                        Id: 1d1d9215-d668-4056-b193-6b55e6a34d15
+                        Position: {X: 0.0, Y: 2.0, Z: 0.0}
+                        Rotation: {X: 1.131334E-08, Y: -0.9659258, Z: -0.25881904, W: -4.222196E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    2e4e4a36826225a3c32aadf763ac64b5: !LightComponent
+                        Id: 5a73f1e4-5f65-46a2-8b73-299678b59f94
+                        Type: !LightDirectional
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Shadow: !LightDirectionalShadowMap
+                                Enabled: true
+                                Filter: !LightShadowMapFilterTypePcf
+                                    FilterSize: Filter5x5
+                                Size: Large
+                                DepthRange: {}
+                                PartitionMode: !LightDirectionalShadowMap.PartitionLogarithmic {}
+                                ComputeTransmittance: false
+                                BiasParameters: {}
+                        Intensity: 20.0
+        -   Entity:
+                Id: e0570a55-6664-4d2a-9c8b-00f482bc6afc
+                Name: ChunkMesh
+                Components:
+                    18b435d0d847b32c3707c7d7349bb7f1: !TransformComponent
+                        Id: 5c5bb723-bc8e-43b7-83c6-f05bc84ddf25
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    2ea6b0834bda60656b3e28cfedc3570f: !ModelComponent
+                        Id: 118f2480-b121-49fe-89a1-eda6798c69bd
+                        Model: null
+                        Materials: {}
+                    25133f91698f2b2e6e32b4d6846858f3: !TurtleGames.VoxelEngine.ChunkVisual,TurtleGames.VoxelEngine
+                        Id: 23d70aaa-e39f-4c99-80a3-059b932bd9ca
+                        VoxelSize: 1.0

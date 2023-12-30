@@ -1,0 +1,38 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 16
+VisualStudioVersion = 16.0.0.0
+MinimumVisualStudioVersion = 16.0.0.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelFactory.Windows", "VoxelFactory.Windows\VoxelFactory.Windows.csproj", "{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelFactory", "VoxelFactory\VoxelFactory.csproj", "{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TurtleGames.VoxelEngine", "TurtleGames.VoxelEngine\TurtleGames.VoxelEngine.csproj", "{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Any CPU|Any CPU = Any CPU|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}.Any CPU|Any CPU.ActiveCfg = Any CPU|Any CPU
+		{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}.Any CPU|Any CPU.Build.0 = Any CPU|Any CPU
+		{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37DFE1B9-DDAB-4077-A985-0D6D4BC32753}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}.Any CPU|Any CPU.ActiveCfg = Any CPU|Any CPU
+		{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}.Any CPU|Any CPU.Build.0 = Any CPU|Any CPU
+		{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96CA441A-B37E-4FA1-82BD-73E1A9C5FE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}.Any CPU|Any CPU.ActiveCfg = Any CPU|Any CPU
+		{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}.Any CPU|Any CPU.Build.0 = Any CPU|Any CPU
+		{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09B96B3-C3D8-457E-AF20-DF9B18D9EAA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
