@@ -10,12 +10,11 @@ namespace TurtleGames.VoxelEngine;
 public class ChunkSystemComponent : SyncScript
 {
     private TransformComponent _cameraTransform;
-    private ChunkGenerator _chunkGenerator;
+    private ChunkGeneratorComponent _chunkGenerator;
     public CameraComponent Camera { get; set; }
     public VoxelGameState GameState { get; set; }
-    public Vector2 ChunkSize { get; set; }
-    public int Seed { get; set; }
-    public int ChunkHeight { get; set; }
+    private Vector2 _chunkSize;
+
     public int Radius { get; set; } = 2;
     public float VoxelSize { get; set; } = 1;
 
@@ -26,7 +25,8 @@ public class ChunkSystemComponent : SyncScript
     public override void Start()
     {
         _cameraTransform = Camera.Entity.Get<TransformComponent>();
-        _chunkGenerator = new ChunkGenerator(Seed, ChunkHeight, ChunkSize);
+        _chunkGenerator = Entity.Get<ChunkGeneratorComponent>();
+        _chunkSize = _chunkGenerator.ChunkSize;
     }
 
     private bool _once;
@@ -58,14 +58,14 @@ public class ChunkSystemComponent : SyncScript
                 var newPosition = new ChunkVector(x, y);
                 if (GameState.Chunks.All(b => b.Position != newPosition))
                 {
-                    var chunk = _chunkGenerator.GenerateChunk(x, y);
-                    GameState.Chunks.Add(chunk);
+                    var chunkData = _chunkGenerator.QueueNewChunkForCalculation(new ChunkVector(x, y));
+                    GameState.Chunks.Add(chunkData);
                     var visualizationEntity = new Entity("chunkVisual",
-                        new Vector3(x * ChunkSize.X * VoxelSize, -ChunkHeight / 2f * VoxelSize,
-                            y * ChunkSize.Y * VoxelSize));
+                        new Vector3(x * _chunkSize.X * VoxelSize, -_chunkGenerator.ChunkHeight / 2f * VoxelSize,
+                            y * _chunkSize.Y * VoxelSize));
                     visualizationEntity.Add(new ChunkVisual()
                     {
-                        ChunkData = chunk,
+                        ChunkData = chunkData,
                         Material = BlockMaterial,
                         VoxelSize = VoxelSize
                     });
@@ -83,8 +83,8 @@ public class ChunkSystemComponent : SyncScript
 
     private Vector2 ToChunkPosition(Vector3 cameraTransformPosition)
     {
-        int x = (int)MathF.Round(cameraTransformPosition.X / ChunkSize.X / VoxelSize);
-        int y = (int)MathF.Round(cameraTransformPosition.Z / ChunkSize.Y / VoxelSize);
+        int x = (int)MathF.Round(cameraTransformPosition.X / _chunkSize.X / VoxelSize);
+        int y = (int)MathF.Round(cameraTransformPosition.Z / _chunkSize.Y / VoxelSize);
         return new Vector2(x, y);
     }
 }

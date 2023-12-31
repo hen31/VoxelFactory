@@ -15,14 +15,14 @@ namespace TurtleGames.VoxelEngine
     public class ChunkVisual : SyncScript
     {
         // Declared public member fields and properties will show in the game studio
+        private bool _hasModel { get; set; }
         public float VoxelSize { get; set; } = 1f;
-
         [DataMemberIgnore] public ChunkData ChunkData { get; set; }
         public Material Material { get; set; }
 
         public override void Start()
         {
-            GenerateVisuals();
+           
         }
 
 
@@ -303,21 +303,12 @@ namespace TurtleGames.VoxelEngine
         public override void Update()
         {
             // Do stuff every new frame
-
-            /*      if (Input.IsKeyPressed(Keys.L))
-                  {
-                      var transform = Entity.Get<TransformComponent>();
-                      transform.Position = transform.Position + new Vector3(1f, 0f, 0);
-                      FillChunkData();
-                      GenerateVisuals();
-                  }
-                  if (Input.IsKeyPressed(Keys.K))
-                  {
-                      var transform = Entity.Get<TransformComponent>();
-                      transform.Position = transform.Position + new Vector3(-1f, 0f, 0);
-                      FillChunkData();
-                      GenerateVisuals();
-                  }*/
+            if (ChunkData.Calculated && !_hasModel)
+            {
+                _hasModel = true;
+                GenerateVisuals();
+                _hasModel = true;
+            }
         }
     }
 }
