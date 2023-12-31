@@ -23,8 +23,8 @@ public class ChunkSystemComponent : SyncScript
     public bool OnlyInitialGeneration { get; set; } = false;
 
     public Material BlockMaterial { get; set; }
-    
-    private List<ChunkVisual> _currentVisuals  = new List<ChunkVisual>();
+
+    private List<ChunkVisual> _currentVisuals = new List<ChunkVisual>();
 
     public override void Start()
     {
@@ -52,7 +52,7 @@ public class ChunkSystemComponent : SyncScript
 
         var currentPositionInChunkPositions = ToChunkPosition(_cameraTransform.Position);
         var toDelete = _currentVisuals.ToList();
-        
+
         for (int x = (int)currentPositionInChunkPositions.X - Radius;
              x < currentPositionInChunkPositions.X + Radius;
              x++)
@@ -62,21 +62,23 @@ public class ChunkSystemComponent : SyncScript
                  y++)
             {
                 var newPosition = new ChunkVector(x, y);
-                ChunkData chunkData = null;
-                
-                if (!GameState.Chunks.TryGetValue(newPosition, out chunkData))
-                {
-                    chunkData = _chunkGenerator.QueueNewChunkForCalculation(new ChunkVector(x, y));
-                    GameState.Chunks.Add(newPosition, chunkData);
-                }
+                var chunkData = GetChunkAt(newPosition);
+
+        
 
                 var currentVisual = _currentVisuals.FirstOrDefault(b => b.ChunkData == chunkData);
-                if (currentVisual !=null)
+                if (currentVisual != null)
                 {
                     toDelete.Remove(currentVisual);
                 }
                 else
                 {
+                    var neighbours = new ChunkData[4];
+                    neighbours[0] = GetChunkAt(new ChunkVector(x, y + 1));
+                    neighbours[1] = GetChunkAt(new ChunkVector(x + 1, y));
+                    neighbours[2] = GetChunkAt(new ChunkVector(x, y - 1));
+                    neighbours[3] = GetChunkAt(new ChunkVector(x - 1, y));
+                    
                     var visualizationEntity = new Entity("chunkVisual",
                         new Vector3(x * _chunkSize.X * VoxelSize, -_chunkGenerator.ChunkHeight / 2f * VoxelSize,
                             y * _chunkSize.Y * VoxelSize));
@@ -85,12 +87,14 @@ public class ChunkSystemComponent : SyncScript
                         ChunkData = chunkData,
                         Material = BlockMaterial,
                         VoxelSize = VoxelSize,
-                        GeneratorComponent = _chunkVisualGenerator
+                        GeneratorComponent = _chunkVisualGenerator,
+                        Neighbours =  neighbours
                     };
                     visualizationEntity.Add(chunkVisualization);
                     Entity.Scene.Entities.Add(visualizationEntity);
                     _currentVisuals.Add(chunkVisualization);
                 }
+                
             }
         }
 
@@ -100,7 +104,20 @@ public class ChunkSystemComponent : SyncScript
             Entity.Scene.Entities.Remove(visualNotLongerInRange.Entity);
             _currentVisuals.Remove(visualNotLongerInRange);
         }
-    }   
+    }
+
+    private ChunkData GetChunkAt(ChunkVector newPosition)
+    {
+        ChunkData chunkData = null;
+
+        if (!GameState.Chunks.TryGetValue(newPosition, out chunkData))
+        {
+            chunkData = _chunkGenerator.QueueNewChunkForCalculation(newPosition);
+            GameState.Chunks.Add(newPosition, chunkData);
+        }
+
+        return chunkData;
+    }
 
     private Vector2 ToChunkPosition(Vector3 cameraTransformPosition)
     {

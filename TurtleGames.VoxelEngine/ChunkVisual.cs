@@ -22,6 +22,7 @@ namespace TurtleGames.VoxelEngine
         [DataMemberIgnore] public ChunkData ChunkData { get; set; }
         [DataMemberIgnore] public ChunkVisualsGeneratorComponent GeneratorComponent { get; set; }
         public Material Material { get; set; }
+        public ChunkData[] Neighbours { get; set; }
 
         public override void Start()
         {
@@ -81,6 +82,7 @@ namespace TurtleGames.VoxelEngine
         {
             if (_hasModel
                 || !ChunkData.Calculated
+                || Neighbours.Any(b => !b.Calculated)
                 || _request is { IsCalculated: false })
             {
                 return;
@@ -89,7 +91,7 @@ namespace TurtleGames.VoxelEngine
             // Do stuff every new frame
             if (_request == null)
             {
-                _request = GeneratorComponent.EnequeVisualCreation(ChunkData);
+                _request = GeneratorComponent.EnequeVisualCreation(ChunkData, Neighbours);
             }
             else
             {

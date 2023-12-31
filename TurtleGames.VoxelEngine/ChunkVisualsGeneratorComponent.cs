@@ -45,14 +45,15 @@ public class ChunkVisualsGeneratorComponent : StartupScript
             chunkVisualData.Vertexes = new List<VertexPositionTexture>();
             chunkVisualData.Indexes = new List<int>();
 
-            CalculateModel(request.ChunkData, chunkVisualData.Vertexes, chunkVisualData.Indexes);
+            CalculateModel(request.ChunkData, request.Neighbours, chunkVisualData.Vertexes, chunkVisualData.Indexes);
             request.VisualsData = chunkVisualData;
             request.IsCalculated = true;
         }
     }
 
 
-    private void CalculateModel(ChunkData chunkData, List<VertexPositionTexture> vertices, List<int> indexes)
+    private void CalculateModel(ChunkData chunkData, ChunkData[] NeighbourChunks, List<VertexPositionTexture> vertices,
+        List<int> indexes)
     {
         var offSet = chunkData.Size / 2f * _voxelSize;
         for (int x = 0; x < chunkData.Size.X; x++)
@@ -71,14 +72,22 @@ public class ChunkVisualsGeneratorComponent : StartupScript
                         0 //Bottom
                     };
 
-                    neighbours[0] = x == 0 ? 1 : chunkData.Chunk[x - 1, y, z];
-                    neighbours[2] = x == (int)chunkData.Size.X - 1 ? 1 : chunkData.Chunk[x + 1, y, z];
+                    neighbours[0] = x == 0
+                        ? NeighbourChunks[0].Chunk[(int)chunkData.Size.X - 1, y, z]
+                        : chunkData.Chunk[x - 1, y, z];
+                    neighbours[2] = x == (int)chunkData.Size.X - 1
+                        ? NeighbourChunks[3].Chunk[0, y, z]
+                        : chunkData.Chunk[x + 1, y, z];
 
-                    neighbours[1] = z == 0 ? 1 : chunkData.Chunk[x, y, z - 1];
-                    neighbours[3] = z == (int)chunkData.Size.Y - 1 ? 1 : chunkData.Chunk[x, y, z + 1];
+                    neighbours[1] = z == 0
+                        ? NeighbourChunks[1].Chunk[x, y, (int)chunkData.Size.Y - 1]
+                        : chunkData.Chunk[x, y, z - 1];
+                    neighbours[3] = z == (int)chunkData.Size.Y - 1
+                        ? NeighbourChunks[1].Chunk[x, y, 0]
+                        : chunkData.Chunk[x, y, z + 1];
 
-                    neighbours[5] = y == 0 ? 1 : chunkData.Chunk[x, y - 1, z];
-                    neighbours[4] = y == chunkData.Height - 1 ? 1 : chunkData.Chunk[x, y + 1, z];
+                    neighbours[5] = y == 0 ? 0 : chunkData.Chunk[x, y - 1, z];
+                    neighbours[4] = y == chunkData.Height - 1 ? 0 : chunkData.Chunk[x, y + 1, z];
 
                     if (chunkData.Chunk[x, y, z] == 1)
                     {
@@ -271,11 +280,12 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         indexes.AddRange(indices.Select(b => b + startIndex).Reverse());
     }
 
-    public ChunkVisualsRequest EnequeVisualCreation(ChunkData chunkData)
+    public ChunkVisualsRequest EnequeVisualCreation(ChunkData chunkData, ChunkData[] neighbours)
     {
         var request = new ChunkVisualsRequest()
         {
-            ChunkData = chunkData
+            ChunkData = chunkData,
+            Neighbours = neighbours
         };
         _calculationQueue.Enqueue(request);
         return request;
@@ -287,6 +297,7 @@ public class ChunkVisualsRequest
     public ChunkData ChunkData { get; set; }
     public ChunkVisualData VisualsData { get; set; }
     public bool IsCalculated { get; set; } = false;
+    public ChunkData[] Neighbours { get; set; }
 }
 
 public struct ChunkVisualData

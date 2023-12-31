@@ -156,9 +156,9 @@ Hierarchy:
                         Id: cb8e03b3-7109-493f-b772-48249f1579d3
                         Camera: ref!! ce0590e9-2579-4a57-a8cf-edcd0cf25dfd
                         GameState: ref!! 0d38902d-47a3-4d4c-a55e-fed50074d1fc
-                        Radius: 18
+                        Radius: 1
                         VoxelSize: 1.0
-                        OnlyInitialGeneration: false
+                        OnlyInitialGeneration: true
                         BlockMaterial: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
                     1307aefec9c18506d818c9cdc32519d6: !TurtleGames.VoxelEngine.ChunkGeneratorComponent,TurtleGames.VoxelEngine
                         Id: 765baa32-d74b-48dc-af86-143e41ef9bf5
