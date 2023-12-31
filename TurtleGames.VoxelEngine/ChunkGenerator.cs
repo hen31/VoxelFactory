@@ -9,7 +9,7 @@ public class ChunkGenerator
     private readonly Vector2 _chunkSize;
     private readonly FastNoiseLite _noiseGenerator;
 
-    public ChunkGenerator(int seed, int height,  Vector2 chunkSize)
+    public ChunkGenerator(int seed, int height, Vector2 chunkSize)
     {
         _seed = seed;
         _height = height;
@@ -36,8 +36,18 @@ public class ChunkGenerator
                 {
                     float sampleX = (x + chunkPosition.X) / scale;
                     float sampleY = y / scale;
-                    float sampleZ = (z + chunkPosition.Y) / scale;//No z position always render top to bottom
-                    if (_noiseGenerator.GetNoise(sampleX, sampleY, sampleZ) > 0f)
+                    float sampleZ = (z + chunkPosition.Y) / scale; //No z position always render top to bottom
+                    float noiseValue = _noiseGenerator.GetNoise(sampleX, sampleY, sampleZ);
+
+                    if (y > 500)
+                    {
+                        chunkData.Chunk[x, y, z] = 0;
+                    }
+                    else if (y > 256 && noiseValue > 0.8f)
+                    {
+                        chunkData.Chunk[x, y, z] = 1;
+                    }
+                    else if (noiseValue > 0f)
                     {
                         chunkData.Chunk[x, y, z] = 1;
                     }

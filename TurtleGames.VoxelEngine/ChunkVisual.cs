@@ -18,6 +18,7 @@ namespace TurtleGames.VoxelEngine
         public float VoxelSize { get; set; } = 1f;
 
         [DataMemberIgnore] public ChunkData ChunkData { get; set; }
+        public Material Material { get; set; }
 
         public override void Start()
         {
@@ -76,8 +77,7 @@ namespace TurtleGames.VoxelEngine
             model.BoundingBox = boundingBox;
             modelComponent.Model = model;
 
-            Material material = Content.Load<Material>("CubeMaterial");
-            model.Materials.Add(material);
+            model.Materials.Add(Material);
         }
 
         private void CalculateModel(List<VertexPositionTexture> vertices, List<int> indexes)
@@ -98,15 +98,15 @@ namespace TurtleGames.VoxelEngine
                             0, //Top
                             0 //Bottom
                         };
+                        
+                        neighbours[0] = x == 0 ? 1 : ChunkData.Chunk[x - 1, y, z];
+                        neighbours[2] = x == (int)ChunkData.Size.X - 1 ? 1 : ChunkData.Chunk[x + 1, y, z];
 
-                        neighbours[0] = x == 0 ? 0 : ChunkData.Chunk[x - 1, y, z];
-                        neighbours[2] = x == (int)ChunkData.Size.X - 1 ? 0 : ChunkData.Chunk[x + 1, y, z];
+                        neighbours[1] = z == 0 ? 1 : ChunkData.Chunk[x, y, z - 1];
+                        neighbours[3] = z == (int)ChunkData.Size.Y - 1 ? 1 : ChunkData.Chunk[x, y, z + 1];
 
-                        neighbours[1] = z == 0 ? 0 : ChunkData.Chunk[x, y, z - 1];
-                        neighbours[3] = z == (int)ChunkData.Size.Y - 1 ? 0 : ChunkData.Chunk[x, y, z + 1];
-
-                        neighbours[5] = y == 0 ? 0 : ChunkData.Chunk[x, y - 1, z];
-                        neighbours[4] = y == ChunkData.Height - 1 ? 0 : ChunkData.Chunk[x, y + 1, z];
+                        neighbours[5] = y == 0 ? 1 : ChunkData.Chunk[x, y - 1, z];
+                        neighbours[4] = y == ChunkData.Height - 1 ? 1 : ChunkData.Chunk[x, y + 1, z];
 
                         if (ChunkData.Chunk[x, y, z] == 1)
                         {
