@@ -52,7 +52,7 @@ public class ChunkVisualsGeneratorComponent : StartupScript
     }
 
 
-    private void CalculateModel(ChunkData chunkData, ChunkData[] NeighbourChunks, List<VertexPositionTexture> vertices,
+    private void CalculateModel(ChunkData chunkData, ChunkData[] neighbourChunks, List<VertexPositionTexture> vertices,
         List<int> indexes)
     {
         var offSet = chunkData.Size / 2f * _voxelSize;
@@ -62,40 +62,47 @@ public class ChunkVisualsGeneratorComponent : StartupScript
             {
                 for (int z = 0; z < chunkData.Size.Y; z++)
                 {
-                    var neighbours = new int[]
-                    {
-                        0, //Left
-                        0, //Back
-                        0, //Right
-                        0, //Front
-                        0, //Top
-                        0 //Bottom
-                    };
-
-                    neighbours[0] = x == 0
-                        ? NeighbourChunks[0].Chunk[(int)chunkData.Size.X - 1, y, z]
-                        : chunkData.Chunk[x - 1, y, z];
-                    neighbours[2] = x == (int)chunkData.Size.X - 1
-                        ? NeighbourChunks[3].Chunk[0, y, z]
-                        : chunkData.Chunk[x + 1, y, z];
-
-                    neighbours[1] = z == 0
-                        ? NeighbourChunks[1].Chunk[x, y, (int)chunkData.Size.Y - 1]
-                        : chunkData.Chunk[x, y, z - 1];
-                    neighbours[3] = z == (int)chunkData.Size.Y - 1
-                        ? NeighbourChunks[1].Chunk[x, y, 0]
-                        : chunkData.Chunk[x, y, z + 1];
-
-                    neighbours[5] = y == 0 ? 0 : chunkData.Chunk[x, y - 1, z];
-                    neighbours[4] = y == chunkData.Height - 1 ? 0 : chunkData.Chunk[x, y + 1, z];
-
                     if (chunkData.Chunk[x, y, z] == 1)
                     {
+                        var neighbours = CalculateNeighbours(chunkData, neighbourChunks, x, y, z);
+
                         CreateCubeMesh(vertices, indexes, neighbours, x, y, z, -offSet);
                     }
                 }
             }
         }
+    }
+
+    private static int[] CalculateNeighbours(ChunkData chunkData, ChunkData[] neighbourChunks, int x, int y, int z)
+    {
+        var neighbours = new int[]
+        {
+            0, //Left 0
+            0, //Back 1
+            0, //Right 2
+            0, //Front 3
+            0, //Top 4
+            0 //Bottom 5
+        };
+
+        neighbours[0] = x == 0
+            ? neighbourChunks[3].Chunk[(int)chunkData.Size.X - 1, y, z]
+            : chunkData.Chunk[x - 1, y, z];
+        neighbours[2] = x == (int)chunkData.Size.X - 1
+            ? neighbourChunks[1].Chunk[0, y, z]
+            : chunkData.Chunk[x + 1, y, z];
+
+        neighbours[1] = z == 0
+            ? neighbourChunks[2].Chunk[x, y, (int)chunkData.Size.Y - 1]
+            : chunkData.Chunk[x, y, z - 1];
+        neighbours[3] = z == (int)chunkData.Size.Y - 1
+            ? neighbourChunks[0].Chunk[x, y, 0]
+            : chunkData.Chunk[x, y, z + 1];
+
+                    
+        neighbours[5] = y == 0 ? 0 : chunkData.Chunk[x, y - 1, z];
+        neighbours[4] = y == chunkData.Height - 1 ? 0 : chunkData.Chunk[x, y + 1, z];
+        return neighbours;
     }
 
     private void CreateCubeMesh(List<VertexPositionTexture> vertices, List<int> indexes, int[] neighBours, int x,
