@@ -7,5 +7,5 @@ namespace TurtleGames.VoxelEngine;
 public class VoxelGameState : StartupScript
 {
     [DataMemberIgnore]
-    public List<ChunkData> Chunks { get; set; } = new();
+    public Dictionary<ChunkVector, ChunkData> Chunks { get; set; } = new();
 }

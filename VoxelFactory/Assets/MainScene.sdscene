@@ -156,7 +156,7 @@ Hierarchy:
                         Id: cb8e03b3-7109-493f-b772-48249f1579d3
                         Camera: ref!! ce0590e9-2579-4a57-a8cf-edcd0cf25dfd
                         GameState: ref!! 0d38902d-47a3-4d4c-a55e-fed50074d1fc
-                        Radius: 12
+                        Radius: 18
                         VoxelSize: 1.0
                         OnlyInitialGeneration: false
                         BlockMaterial: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
@@ -165,3 +165,6 @@ Hierarchy:
                         Seed: 123
                         ChunkHeight: 64
                         ChunkSize: {X: 16.0, Y: 16.0}
+                        DebugWrite: true
+                    788099a247cf36883d9d29cc481344f9: !TurtleGames.VoxelEngine.ChunkVisualsGeneratorComponent,TurtleGames.VoxelEngine
+                        Id: a5c856d6-821c-4e85-8473-87111986218b

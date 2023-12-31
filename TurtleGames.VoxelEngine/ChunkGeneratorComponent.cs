@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using BulletSharp;
@@ -14,6 +15,9 @@ public class ChunkGeneratorComponent : StartupScript
     public int Seed { get; set; }
     public int ChunkHeight { get; set; }
     public Vector2 ChunkSize { get; set; }
+
+    public bool DebugWrite { get; set; }
+
     private FastNoiseLite _noiseGenerator;
 
 
@@ -94,8 +98,12 @@ public class ChunkGeneratorComponent : StartupScript
     {
         if (_calculationQueue.TryDequeue(out ChunkData toCalculate))
         {
+            Debug.WriteLineIf(DebugWrite,
+                $"Start calculation for cunk X:{toCalculate.Position.X},Y:{toCalculate.Position.Y}");
             GenerateChunk(toCalculate);
             toCalculate.Calculated = true;
+            Debug.WriteLineIf(DebugWrite,
+                $"End calculation for cunk X:{toCalculate.Position.X},Y:{toCalculate.Position.Y}");
         }
     }
 

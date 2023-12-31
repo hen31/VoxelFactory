@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Stride.Core.Mathematics;
@@ -11,6 +12,7 @@ public class ChunkSystemComponent : SyncScript
 {
     private TransformComponent _cameraTransform;
     private ChunkGeneratorComponent _chunkGenerator;
+    private ChunkVisualsGeneratorComponent _chunkVisualGenerator;
     public CameraComponent Camera { get; set; }
     public VoxelGameState GameState { get; set; }
     private Vector2 _chunkSize;
@@ -21,11 +23,14 @@ public class ChunkSystemComponent : SyncScript
     public bool OnlyInitialGeneration { get; set; } = false;
 
     public Material BlockMaterial { get; set; }
+    
+    private List<ChunkVisual> _currentVisuals  = new List<ChunkVisual>();
 
     public override void Start()
     {
         _cameraTransform = Camera.Entity.Get<TransformComponent>();
         _chunkGenerator = Entity.Get<ChunkGeneratorComponent>();
+        _chunkVisualGenerator = Entity.Get<ChunkVisualsGeneratorComponent>();
         _chunkSize = _chunkGenerator.ChunkSize;
     }
 
@@ -46,7 +51,8 @@ public class ChunkSystemComponent : SyncScript
         }
 
         var currentPositionInChunkPositions = ToChunkPosition(_cameraTransform.Position);
-
+        var toDelete = _currentVisuals.ToList();
+        
         for (int x = (int)currentPositionInChunkPositions.X - Radius;
              x < currentPositionInChunkPositions.X + Radius;
              x++)
@@ -56,30 +62,45 @@ public class ChunkSystemComponent : SyncScript
                  y++)
             {
                 var newPosition = new ChunkVector(x, y);
-                if (GameState.Chunks.All(b => b.Position != newPosition))
+                ChunkData chunkData = null;
+                
+                if (!GameState.Chunks.TryGetValue(newPosition, out chunkData))
                 {
-                    var chunkData = _chunkGenerator.QueueNewChunkForCalculation(new ChunkVector(x, y));
-                    GameState.Chunks.Add(chunkData);
+                    chunkData = _chunkGenerator.QueueNewChunkForCalculation(new ChunkVector(x, y));
+                    GameState.Chunks.Add(newPosition, chunkData);
+                }
+
+                var currentVisual = _currentVisuals.FirstOrDefault(b => b.ChunkData == chunkData);
+                if (currentVisual !=null)
+                {
+                    toDelete.Remove(currentVisual);
+                }
+                else
+                {
                     var visualizationEntity = new Entity("chunkVisual",
                         new Vector3(x * _chunkSize.X * VoxelSize, -_chunkGenerator.ChunkHeight / 2f * VoxelSize,
                             y * _chunkSize.Y * VoxelSize));
-                    visualizationEntity.Add(new ChunkVisual()
+                    var chunkVisualization = new ChunkVisual()
                     {
                         ChunkData = chunkData,
                         Material = BlockMaterial,
-                        VoxelSize = VoxelSize
-                    });
+                        VoxelSize = VoxelSize,
+                        GeneratorComponent = _chunkVisualGenerator
+                    };
+                    visualizationEntity.Add(chunkVisualization);
                     Entity.Scene.Entities.Add(visualizationEntity);
-                    Debug.WriteLine(
-                        $"Currentchunk check start chunk X:{currentPositionInChunkPositions.X} Y:{currentPositionInChunkPositions.Y}");
-
-                    Debug.WriteLine($"generated chunk X:{x} Y:{y}");
-                    /*     DebugText.Print($"generated chunk X:{x} Y:{y}", new Int2(x: 50, y: 50),
-                             timeOnScreen: new TimeSpan(0, 0, 2));*/
+                    _currentVisuals.Add(chunkVisualization);
                 }
             }
         }
-    }
+
+
+        foreach (var visualNotLongerInRange in toDelete)
+        {
+            Entity.Scene.Entities.Remove(visualNotLongerInRange.Entity);
+            _currentVisuals.Remove(visualNotLongerInRange);
+        }
+    }   
 
     private Vector2 ToChunkPosition(Vector3 cameraTransformPosition)
     {
