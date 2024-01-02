@@ -163,7 +163,7 @@ Hierarchy:
                     1307aefec9c18506d818c9cdc32519d6: !TurtleGames.VoxelEngine.ChunkGeneratorComponent,TurtleGames.VoxelEngine
                         Id: 765baa32-d74b-48dc-af86-143e41ef9bf5
                         Seed: 123
-                        ChunkHeight: 64
+                        ChunkHeight: 512
                         ChunkSize: {X: 16.0, Y: 16.0}
                         DebugWrite: false
                     788099a247cf36883d9d29cc481344f9: !TurtleGames.VoxelEngine.ChunkVisualsGeneratorComponent,TurtleGames.VoxelEngine
