@@ -97,7 +97,7 @@ Hierarchy:
                         Children: {}
                     3be398d64db964f4b185c3d4f7b8a456: !BackgroundComponent
                         Id: a3983baa-45b9-467b-a769-c8f5bd4c3a9c
-                        Texture: 8016ad2a-913d-4c3f-b7a9-25db6eafaf05:Skybox texture
+                        Texture: 3766ad7a-aa89-48a5-8d7e-823ae205e3f2:Skyboxes/Sky_Day_BlueSky_Equirect
                     82e70d5f7b4fc75e3cf5ab6c0c6c7fbf: !LightComponent
                         Id: 7ebf4062-368d-470e-ade4-467c118cefb8
                         Type: !LightSkybox

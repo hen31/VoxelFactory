@@ -1,0 +1,9 @@
+!Texture
+Id: 3766ad7a-aa89-48a5-8d7e-823ae205e3f2
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file ../../Resources/Skyboxes/Sky_Day_BlueSky_Equirect.png
+IsCompressed: false
+Type: !ColorTextureType
+    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
+GenerateMipmaps: false
