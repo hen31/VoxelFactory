@@ -35,7 +35,7 @@ Hierarchy:
                         Gamepad: false
                         KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
                         TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
-                        SpeedFactor: 5.0
+                        SpeedFactor: 25.0
                         KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
                         MouseRotationSpeed: {X: 1.0, Y: 1.0}
                         TouchRotationSpeed: {X: 1.0, Y: 0.7}
@@ -173,37 +173,69 @@ Hierarchy:
                         BlockMaterial: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
                     1307aefec9c18506d818c9cdc32519d6: !TurtleGames.VoxelEngine.ChunkGeneratorComponent,TurtleGames.VoxelEngine
                         Id: 765baa32-d74b-48dc-af86-143e41ef9bf5
-                        Seed: 512
                         ChunkHeight: 512
                         ChunkSize: {X: 16.0, Y: 16.0}
                         DebugWrite: false
-                        Continental spline:
-                            SplinePoints:
-                                65117b22e40299707e7fa0add929386a:
-                                    Point: -1.0
-                                    Value: 35
-                                73f7e64a314cc2dce8f52895502946d6:
-                                    Point: -0.5
-                                    Value: 40
-                                19b805962a45bc109a929541551d8d0b:
-                                    Point: 0.0
-                                    Value: 40
-                                16e58f57f4a043d5efe55db52cf60799:
-                                    Point: 0.3
-                                    Value: 50
-                                a3773bc37c1d2f72494cb652222fd1c3:
-                                    Point: 0.6
-                                    Value: 75
-                                d502ec27d857dc8efa03d143e8460296:
-                                    Point: 1.0
-                                    Value: 125
-                                ecd5ebdeb9b8334e6dd2dfca704aec36:
-                                    Point: 0.8
-                                    Value: 100
-                                304d966ec2adeffb2bd2c96cef26679d:
-                                    Point: 0.9
-                                    Value: 110
-                            MinValue: -1.0
-                            MaxValue: 1.0
+                        Continentalness:
+                            NoiseMapSettings:
+                                Seed: 123
+                                Octaves: 4
+                                Lacunarity: 0.5
+                                Persistance: 1.87
+                                Scale: 0.01
+                            NoiseSpline:
+                                SplinePoints:
+                                    7963adb4d9bfa1b5cefe2c5c8c97e078:
+                                        Point: -1.0
+                                        Value: 100
+                                    f5a98fe77b139896a3f55e5ec95531e1:
+                                        Point: -0.25
+                                        Value: 100
+                                    23ccb39430ebaf21f368bbe61cab25ae:
+                                        Point: 0.2
+                                        Value: 150
+                                    794ce1491e5122d4abefe0f1623637d7:
+                                        Point: 0.4
+                                        Value: 150
+                                    4b0a99f0fed13b89f29d3e1dd8e52dad:
+                                        Point: 0.6
+                                        Value: 200
+                                    f0b6b2cc5f60eb2b82aca6dcbd9f3ce8:
+                                        Point: 0.8
+                                        Value: 210
+                                    7d89f5ec3ee524d7b7cb08a08da7d23d:
+                                        Point: 0.9
+                                        Value: 220
+                                    6b5a569514fec0074a03f5ddb3475371:
+                                        Point: 1.0
+                                        Value: 225
+                                MinValue: -1.0
+                                MaxValue: 1.0
+                        Errossion:
+                            NoiseMapSettings:
+                                Seed: 84526
+                                Octaves: 4
+                                Lacunarity: 0.5
+                                Persistance: 1.87
+                                Scale: 0.02
+                            NoiseSpline:
+                                SplinePoints:
+                                    e364f44baed410bb15f8a7fa5854c106:
+                                        Point: -1.0
+                                        Value: 30
+                                    eb3418beadbed6139e1d1ff800f058c1:
+                                        Point: -0.5
+                                        Value: 15
+                                    68da643af0f44e6aed15afcab65306e3:
+                                        Point: 0.0
+                                        Value: 15
+                                    5d0debc8e6bd2b801f19757f02ca1fcf:
+                                        Point: 0.5
+                                        Value: 10
+                                    83a24b992197c41a95e8dcf338e17a7e:
+                                        Point: 1.0
+                                        Value: 15
+                                MinValue: -1.0
+                                MaxValue: 1.0
                     788099a247cf36883d9d29cc481344f9: !TurtleGames.VoxelEngine.ChunkVisualsGeneratorComponent,TurtleGames.VoxelEngine
                         Id: a5c856d6-821c-4e85-8473-87111986218b

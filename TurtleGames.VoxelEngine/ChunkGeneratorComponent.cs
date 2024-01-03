@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
@@ -10,7 +9,6 @@ using System.Threading.Tasks;
 using BulletSharp;
 using Stride.Animations;
 using Stride.Core;
-using Stride.Core.Annotations;
 using Stride.Core.Mathematics;
 using Stride.Core.Threading;
 using Stride.Engine;
@@ -25,21 +23,21 @@ namespace TurtleGames.VoxelEngine;
 
 public class ChunkGeneratorComponent : SyncScript
 {
-    public int Seed { get; set; }
     public ushort ChunkHeight { get; set; }
     public Vector2 ChunkSize { get; set; }
     public bool DebugWrite { get; set; }
 
-    [DataMember("Continental spline")] public SplineSettings ContinentalSplineSettings { get; set; } = new();
-
+    [DataMember("Continentalness")] public NoiseWithSpline Continentalness { get; set; } = new();
+    [DataMember("Errossion")] public NoiseWithSpline Errosion { get; set; } = new();
     private ConcurrentQueue<ChunkData> _calculationQueue = new ConcurrentQueue<ChunkData>();
     private Thread _thread;
     private CancellationTokenSource _cancellationToken;
-    private NoiseMap _continentalness;
+
 
     private void InitializeNoiseGenerators()
     {
-        _continentalness = new NoiseMap(Seed, 0.0025f);
+        Continentalness.Initialize();
+        Errosion.Initialize();
     }
 
     public ChunkData QueueNewChunkForCalculation(ChunkVector position)
@@ -67,8 +65,8 @@ public class ChunkGeneratorComponent : SyncScript
             for (int z = 0; z < ChunkSize.Y; z++)
             {
                 float zPosition = (z + chunkPosition.Y);
-                float continentalness = _continentalness.GetNoise(xPosition, zPosition);
-                int baseHeight = 100 + ContinentalSplineSettings.GetValue(continentalness);
+
+                int baseHeight = 100 + Continentalness.GetValue(xPosition, zPosition) + Errosion.GetValue(xPosition,zPosition);
                 for (int y = 0; y < ChunkHeight; y++)
                 {
                     if (y < baseHeight)
@@ -96,22 +94,35 @@ public class ChunkGeneratorComponent : SyncScript
     {
         if (Input.IsKeyPressed(Keys.N))
         {
-            var bitmap = new Bitmap(1920, 1080);
+            var bitmapCon = new Bitmap(1920, 1080);
+            var bitmapEr = new Bitmap(1920, 1080);
 
-            for (var x = 0; x < bitmap.Width; x++)
+            for (var x = 0; x < bitmapCon.Width; x++)
             {
-                for (var y = 0; y < bitmap.Height; y++)
+                for (var y = 0; y < bitmapCon.Height; y++)
                 {
-                    var value = (int)MathUtils.Map(ContinentalSplineSettings.GetValue(_continentalness.GetNoise(x, y)), ContinentalSplineSettings.SplinePoints.Min(b=> b.Value), ContinentalSplineSettings.SplinePoints.Max(b=> b.Value), 0, 254);
+                    var value = (int)MathUtils.Map(Continentalness.GetValue(x, y),
+                        Continentalness.NoiseSpline.SplinePoints.Min(b => b.Value),
+                        Continentalness.NoiseSpline.SplinePoints.Max(b => b.Value), 0, 254);
                     //Lerp(0,255,_continentalness.GetNoise(x,y)
                     var color = System.Drawing.Color.FromArgb(
                         value,
                         value, value);
-                    bitmap.SetPixel(x, y, color);
+                    bitmapCon.SetPixel(x, y, color);
+
+                    value = (int)MathUtils.Map(Errosion.GetValue(x, y),
+                        Errosion.NoiseSpline.SplinePoints.Min(b => b.Value),
+                        Errosion.NoiseSpline.SplinePoints.Max(b => b.Value), 0, 254);
+                    //Lerp(0,255,_continentalness.GetNoise(x,y)
+                    color = System.Drawing.Color.FromArgb(
+                        value,
+                        value, value);
+                    bitmapEr.SetPixel(x, y, color);
                 }
             }
 
-            bitmap.Save("C:\\Development\\Noises\\c.bmp");
+            bitmapCon.Save("C:\\Development\\Noises\\c.bmp");
+            bitmapEr.Save("C:\\Development\\Noises\\e.bmp");
         }
     }
 
@@ -142,62 +153,4 @@ public class ChunkGeneratorComponent : SyncScript
                 $"End calculation for cunk X:{toCalculate.Position.X},Y:{toCalculate.Position.Y}");
         }
     }
-}
-
-[DataContract("Spline")]
-public class SplineSettings
-{
-    [DataMember]
-    [DataMemberRange(-1f, 1f, 0.05f, 0.1f, 2)]
-    public float MinValue { get; set; } = -1f;
-
-    [DataMember]
-    [DataMemberRange(-1f, 1f, 0.05f, 0.1f, 2)]
-    public float MaxValue { get; set; } = -1f;
-
-    [DataMember] public List<SplinePoint> SplinePoints = new();
-
-    public ushort GetValue(float splinePoint)
-    {
-        SplinePoint fromPoint = null;
-        SplinePoint toPoint = null;
-        var orderPoints = SplinePoints.OrderBy(b => b.Point).ToArray();
-        for (int i = 0; i < orderPoints.Length; i++)
-        {
-            var point = orderPoints[i];
-            if (point.Point > splinePoint)
-            {
-                if (i != 0)
-                {
-                    fromPoint = orderPoints[i - 1];
-                }
-
-                toPoint = orderPoints[i];
-
-                break;
-            }
-        }
-
-        if (fromPoint == null)
-        {
-            fromPoint = toPoint;
-        }
-
-        var ifZeroThanThisWasNextPoint = (toPoint.Point - fromPoint.Point);
-        var ifZeroThanThisIsPoint = (splinePoint - fromPoint.Point);
-        var positionBetweenPoints = ifZeroThanThisIsPoint / ifZeroThanThisWasNextPoint;
-
-        var ifZeroThanThisWasNextValue = (toPoint.Value - fromPoint.Value);
-        return (ushort)(fromPoint.Value + (ifZeroThanThisWasNextValue * positionBetweenPoints));
-    }
-}
-
-[DataContract("Spline point")]
-public class SplinePoint
-{
-    [DataMember]
-    [DataMemberRange(-1f, 1f, 0.05f, 0.1f, 2)]
-    public float Point { get; set; }
-
-    [DataMember] public ushort Value { get; set; }
 }
