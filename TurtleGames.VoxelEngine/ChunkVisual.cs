@@ -32,7 +32,7 @@ namespace TurtleGames.VoxelEngine
         {
             var modelComponent = Entity.GetOrCreate<ModelComponent>();
             modelComponent.IsShadowCaster = true;
-            
+
             if (vertices.Count == 0)
             {
                 return;
@@ -47,7 +47,7 @@ namespace TurtleGames.VoxelEngine
             var vector3OfSize = new Vector3(ChunkData.Size.X, ChunkData.Height, ChunkData.Size.Y);
             var points = new[]
             {
-                vector3OfSize,
+                -vector3OfSize,
                 vector3OfSize,
             };
             var boundingBox = BoundingBox.FromPoints(points);

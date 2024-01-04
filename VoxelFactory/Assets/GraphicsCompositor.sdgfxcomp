@@ -130,7 +130,7 @@ SharedRenderers:
             87ff1d9cdd52418daf76385176a0e316: ref!! 8131a11e-e1da-44e8-90c9-bc38c68d5e5e
             5e059d4cc2db4ee8a1f28a40f4ac3ae8: ref!! 318447f8-08a7-4bc5-a8c6-0cad05bcdf90
         GBufferRenderStage: ref!! 97ffeec8-7d0b-4121-b7b8-d46c1108d24c
-        PostEffects: !PostProcessingEffects ref!! a2fd024d-a164-4dee-94f9-3b412a414726
+        PostEffects*: !PostProcessingEffects ref!! a2fd024d-a164-4dee-94f9-3b412a414726
         LightShafts: null
         VRSettings:
             Enabled: false
@@ -164,7 +164,7 @@ SharedRenderers:
     34ecb9b2633eacfc439ba8744fe05102: !PostProcessingEffects
         Id: a2fd024d-a164-4dee-94f9-3b412a414726
         Outline:
-            Enabled: false
+            Enabled*: false
             NormalWeight: 2.0
             DepthWeight: 0.2
             NormalNearCutoff: 0.1
@@ -176,7 +176,11 @@ SharedRenderers:
             SkipBackground: false
         AmbientOcclusion:
             Enabled*: true
-            NumberOfSamples*: 23
+            NumberOfSamples*: 50
+            ParamProjScale*: 1.0
+            ParamIntensity*: 0.3
+            ParamRadius*: 1.5
+            EdgeSharpness*: 1.0
         LocalReflections:
             Enabled: false
             ResolvePassResolution: Full
@@ -185,15 +189,20 @@ SharedRenderers:
             Enabled: false
             DOFAreas: {X: 0.5, Y: 6.0, Z: 50.0, W: 200.0}
         BrightFilter:
+            Enabled*: false
             Color: {R: 1.0, G: 1.0, B: 1.0}
         Bloom:
+            Enabled*: false
             Distortion: {X: 1.0, Y: 1.0}
             Afterimage:
                 Enabled: false
         LightStreak:
+            Enabled*: false
             Attenuation: 0.7
-        LensFlare: {}
+        LensFlare:
+            Enabled*: false
         ColorTransforms:
+            Enabled*: false
             Transforms:
                 1e06f805f8b2e949a06c30d45fe413ef: !ToneMap
                     Operator: !ToneMapHejl2Operator {}
