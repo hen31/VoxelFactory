@@ -1,0 +1,7 @@
+!Texture
+Id: 3a8977ee-0727-4bc5-a374-874f826c8b03
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file ../../../Resources/Textures/ToReplace/dirt.png
+Type: !ColorTextureType
+    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}

@@ -1,0 +1,7 @@
+!Texture
+Id: 2136458d-fd70-45b8-b89e-1c641a71c1ec
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file ../../../Resources/Textures/ToReplace/grass_block_top.png
+Type: !ColorTextureType
+    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}

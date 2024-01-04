@@ -28,10 +28,11 @@ namespace TurtleGames.VoxelEngine
         {
         }
 
-        private void GenerateVisuals(List<VertexPositionTexture> vertices, List<int> indexes)
+        private void GenerateVisuals(List<VertexPositionNormalTexture> vertices, List<int> indexes)
         {
             var modelComponent = Entity.GetOrCreate<ModelComponent>();
-
+            modelComponent.IsShadowCaster = true;
+            
             if (vertices.Count == 0)
             {
                 return;
@@ -62,7 +63,7 @@ namespace TurtleGames.VoxelEngine
                     VertexBuffers = new[]
                     {
                         new VertexBufferBinding(vertexBuffer,
-                            VertexPositionTexture.Layout, vertexBuffer.ElementCount)
+                            VertexPositionNormalTexture.Layout, vertexBuffer.ElementCount)
                     },
                 },
                 BoundingBox = boundingBox

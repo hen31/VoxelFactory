@@ -42,7 +42,7 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         if (_calculationQueue.TryDequeue(out ChunkVisualsRequest request))
         {
             ChunkVisualData chunkVisualData = new ChunkVisualData();
-            chunkVisualData.Vertexes = new List<VertexPositionTexture>();
+            chunkVisualData.Vertexes = new List<VertexPositionNormalTexture>();
             chunkVisualData.Indexes = new List<int>();
 
             CalculateModel(request.ChunkData, request.Neighbours, chunkVisualData.Vertexes, chunkVisualData.Indexes);
@@ -52,7 +52,8 @@ public class ChunkVisualsGeneratorComponent : StartupScript
     }
 
 
-    private void CalculateModel(ChunkData chunkData, ChunkData[] neighbourChunks, List<VertexPositionTexture> vertices,
+    private void CalculateModel(ChunkData chunkData, ChunkData[] neighbourChunks,
+        List<VertexPositionNormalTexture> vertices,
         List<int> indexes)
     {
         var offSet = chunkData.Size / 2f * _voxelSize;
@@ -99,13 +100,13 @@ public class ChunkVisualsGeneratorComponent : StartupScript
             ? neighbourChunks[0].Chunk[x, y, 0]
             : chunkData.Chunk[x, y, z + 1];
 
-                    
+
         neighbours[5] = y == 0 ? 0 : chunkData.Chunk[x, y - 1, z];
         neighbours[4] = y == chunkData.Height - 1 ? 0 : chunkData.Chunk[x, y + 1, z];
         return neighbours;
     }
 
-    private void CreateCubeMesh(List<VertexPositionTexture> vertices, List<int> indexes, int[] neighBours, int x,
+    private void CreateCubeMesh(List<VertexPositionNormalTexture> vertices, List<int> indexes, int[] neighBours, int x,
         int y, int z,
         Vector2 offSet)
     {
@@ -141,23 +142,28 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         }
     }
 
-    private void AddBackSide(List<VertexPositionTexture> vertices, List<int> indexes, int x, int y, int z,
+    private void AddBackSide(List<VertexPositionNormalTexture> vertices, List<int> indexes, int x, int y, int z,
         Vector3 offSet)
     {
+        var normal = Vector3.UnitZ;
         var startIndex = vertices.Count;
         var vectorOfPosition = new Vector3((x * _voxelSize), (y * _voxelSize), (z * _voxelSize));
-        var sideVertexes = new VertexPositionTexture[4];
+        var sideVertexes = new VertexPositionNormalTexture[4];
         sideVertexes[0].Position = vectorOfPosition + new Vector3(0f, 0f, 0f) + offSet;
         sideVertexes[0].TextureCoordinate = new Vector2(1, 1);
+        sideVertexes[0].Normal = normal;
 
         sideVertexes[1].Position = vectorOfPosition + new Vector3(0f, _voxelSize, 0f) + offSet;
         sideVertexes[1].TextureCoordinate = new Vector2(1, 0);
+        sideVertexes[1].Normal = normal;
 
         sideVertexes[2].Position = vectorOfPosition + new Vector3(_voxelSize, _voxelSize, 0f) + offSet;
         sideVertexes[2].TextureCoordinate = new Vector2(0, 0);
+        sideVertexes[2].Normal = normal;
 
         sideVertexes[3].Position = vectorOfPosition + new Vector3(_voxelSize, 0f, 0f) + offSet;
         sideVertexes[3].TextureCoordinate = new Vector2(0, 1);
+        sideVertexes[3].Normal = normal;
 
         int[] indices = { 1, 2, 0, 0, 2, 3 };
 
@@ -165,23 +171,29 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         indexes.AddRange(indices.Select(b => b + startIndex).Reverse());
     }
 
-    private void AddFrontSide(List<VertexPositionTexture> vertices, List<int> indexes, int x, int y, int z,
+    private void AddFrontSide(List<VertexPositionNormalTexture> vertices, List<int> indexes, int x, int y, int z,
         Vector3 offSet)
     {
+        var normal = Vector3.UnitZ;
+
         var startIndex = vertices.Count;
         var vectorOfPosition = new Vector3((x * _voxelSize), (y * _voxelSize), (z * _voxelSize));
-        var sideVertexes = new VertexPositionTexture[4];
+        var sideVertexes = new VertexPositionNormalTexture[4];
         sideVertexes[0].Position = vectorOfPosition + new Vector3(0f, 0f, _voxelSize) + offSet;
         sideVertexes[0].TextureCoordinate = new Vector2(0, 1);
+        sideVertexes[0].Normal = normal;
 
         sideVertexes[1].Position = vectorOfPosition + new Vector3(0f, _voxelSize, _voxelSize) + offSet;
         sideVertexes[1].TextureCoordinate = new Vector2(0, 0);
+        sideVertexes[1].Normal = normal;
 
         sideVertexes[2].Position = vectorOfPosition + new Vector3(_voxelSize, _voxelSize, _voxelSize) + offSet;
         sideVertexes[2].TextureCoordinate = new Vector2(1, 0);
+        sideVertexes[2].Normal = normal;
 
         sideVertexes[3].Position = vectorOfPosition + new Vector3(_voxelSize, 0f, _voxelSize) + offSet;
         sideVertexes[3].TextureCoordinate = new Vector2(1, 1);
+        sideVertexes[3].Normal = normal;
 
         int[] indices = { 1, 2, 0, 0, 2, 3 };
 
@@ -189,23 +201,28 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         indexes.AddRange(indices.Select(b => b + startIndex));
     }
 
-    private void AddBottomSide(List<VertexPositionTexture> vertices, List<int> indexes, int x, int y, int z,
+    private void AddBottomSide(List<VertexPositionNormalTexture> vertices, List<int> indexes, int x, int y, int z,
         Vector3 offSet)
     {
+        var normal = Vector3.UnitY;
         var startIndex = vertices.Count;
         var vectorOfPosition = new Vector3((x * _voxelSize), (y * _voxelSize), (z * _voxelSize));
-        var sideVertexes = new VertexPositionTexture[4];
+        var sideVertexes = new VertexPositionNormalTexture[4];
         sideVertexes[0].Position = vectorOfPosition + new Vector3(0f, 0f, 0f) + offSet;
         sideVertexes[0].TextureCoordinate = new Vector2(0, 1);
+        sideVertexes[0].Normal = normal;
 
         sideVertexes[1].Position = vectorOfPosition + new Vector3(_voxelSize, 0f, 0f) + offSet;
         sideVertexes[1].TextureCoordinate = new Vector2(1, 1);
+        sideVertexes[1].Normal = normal;
 
         sideVertexes[2].Position = vectorOfPosition + new Vector3(_voxelSize, 0f, _voxelSize) + offSet;
         sideVertexes[2].TextureCoordinate = new Vector2(1, 0);
+        sideVertexes[2].Normal = normal;
 
         sideVertexes[3].Position = vectorOfPosition + new Vector3(0f, 0f, _voxelSize) + offSet;
         sideVertexes[3].TextureCoordinate = new Vector2(0, 0);
+        sideVertexes[3].Normal = normal;
 
 
         int[] indices = { 1, 2, 0, 0, 2, 3 };
@@ -214,23 +231,28 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         indexes.AddRange(indices.Select(b => b + startIndex).Reverse());
     }
 
-    private void AddTopSide(List<VertexPositionTexture> vertices, List<int> indexes, int x, int y, int z,
+    private void AddTopSide(List<VertexPositionNormalTexture> vertices, List<int> indexes, int x, int y, int z,
         Vector3 offSet)
     {
+        var normal = Vector3.UnitY;
         var startIndex = vertices.Count;
         var vectorOfPosition = new Vector3((x * _voxelSize), (y * _voxelSize), (z * _voxelSize));
-        var sideVertexes = new VertexPositionTexture[4];
+        var sideVertexes = new VertexPositionNormalTexture[4];
         sideVertexes[0].Position = vectorOfPosition + new Vector3(0f, _voxelSize, 0f) + offSet;
         sideVertexes[0].TextureCoordinate = new Vector2(0, 0);
+        sideVertexes[0].Normal = normal;
 
         sideVertexes[1].Position = vectorOfPosition + new Vector3(_voxelSize, _voxelSize, 0f) + offSet;
         sideVertexes[1].TextureCoordinate = new Vector2(1, 0);
+        sideVertexes[1].Normal = normal;
 
         sideVertexes[2].Position = vectorOfPosition + new Vector3(_voxelSize, _voxelSize, _voxelSize) + offSet;
         sideVertexes[2].TextureCoordinate = new Vector2(1, 1);
+        sideVertexes[2].Normal = normal;
 
         sideVertexes[3].Position = vectorOfPosition + new Vector3(0f, _voxelSize, _voxelSize) + offSet;
         sideVertexes[3].TextureCoordinate = new Vector2(0, 1);
+        sideVertexes[3].Normal = normal;
 
 
         int[] indices = { 1, 2, 0, 0, 2, 3 };
@@ -239,23 +261,28 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         indexes.AddRange(indices.Select(b => b + startIndex));
     }
 
-    private void AddRightSide(List<VertexPositionTexture> vertices, List<int> indexes, int x, int y, int z,
+    private void AddRightSide(List<VertexPositionNormalTexture> vertices, List<int> indexes, int x, int y, int z,
         Vector3 offSet)
     {
+        var normal = Vector3.UnitZ;
         var startIndex = vertices.Count;
         var vectorOfPosition = new Vector3((x * _voxelSize), (y * _voxelSize), (z * _voxelSize));
-        var sideVertexes = new VertexPositionTexture[4];
+        var sideVertexes = new VertexPositionNormalTexture[4];
         sideVertexes[0].Position = vectorOfPosition + new Vector3(_voxelSize, 0f, _voxelSize) + offSet;
         sideVertexes[0].TextureCoordinate = new Vector2(0, 1);
+        sideVertexes[0].Normal = normal;
 
         sideVertexes[1].Position = vectorOfPosition + new Vector3(_voxelSize, _voxelSize, 0f) + offSet;
         sideVertexes[1].TextureCoordinate = new Vector2(1, 0);
+        sideVertexes[1].Normal = normal;
 
         sideVertexes[2].Position = vectorOfPosition + new Vector3(_voxelSize, _voxelSize, _voxelSize) + offSet;
         sideVertexes[2].TextureCoordinate = new Vector2(0, 0);
+        sideVertexes[2].Normal = normal;
 
         sideVertexes[3].Position = vectorOfPosition + new Vector3(_voxelSize, 0f, 0f) + offSet;
         sideVertexes[3].TextureCoordinate = new Vector2(1, 1);
+        sideVertexes[3].Normal = normal;
 
         int[] indices = { 0, 2, 1, 0, 1, 3 };
 
@@ -263,23 +290,28 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         indexes.AddRange(indices.Select(b => b + startIndex));
     }
 
-    private void AddLeftSide(List<VertexPositionTexture> vertices, List<int> indexes, int x, int y, int z,
+    private void AddLeftSide(List<VertexPositionNormalTexture> vertices, List<int> indexes, int x, int y, int z,
         Vector3 offSet)
     {
+        var normal = Vector3.UnitZ;
         var startIndex = vertices.Count;
         var vectorOfPosition = new Vector3((x * _voxelSize), (y * _voxelSize), (z * _voxelSize));
-        var sideVertexes = new VertexPositionTexture[4];
+        var sideVertexes = new VertexPositionNormalTexture[4];
         sideVertexes[0].Position = vectorOfPosition + new Vector3(0f, 0f, _voxelSize) + offSet;
         sideVertexes[0].TextureCoordinate = new Vector2(1, 1);
+        sideVertexes[0].Normal = normal;
 
         sideVertexes[1].Position = vectorOfPosition + new Vector3(0f, _voxelSize, 0f) + offSet;
         sideVertexes[1].TextureCoordinate = new Vector2(0, 0);
+        sideVertexes[1].Normal = normal;
 
         sideVertexes[2].Position = vectorOfPosition + new Vector3(0f, _voxelSize, _voxelSize) + offSet;
         sideVertexes[2].TextureCoordinate = new Vector2(1, 0);
+        sideVertexes[2].Normal = normal;
 
         sideVertexes[3].Position = vectorOfPosition + new Vector3(0f, 0f, 0f) + offSet;
         sideVertexes[3].TextureCoordinate = new Vector2(0, 1);
+        sideVertexes[3].Normal = normal;
 
         int[] indices = { 0, 2, 1, 0, 1, 3 };
 
@@ -309,6 +341,6 @@ public class ChunkVisualsRequest
 
 public struct ChunkVisualData
 {
-    public List<VertexPositionTexture> Vertexes { get; set; }
+    public List<VertexPositionNormalTexture> Vertexes { get; set; }
     public List<int> Indexes { get; set; }
 }

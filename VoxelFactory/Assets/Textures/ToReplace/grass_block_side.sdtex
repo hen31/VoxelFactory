@@ -1,0 +1,7 @@
+!Texture
+Id: 9826d061-35d7-45f8-bc4f-640833c6c032
+SerializedVersion: {Stride: 2.0.0.0}
+Tags: []
+Source: !file ../../../Resources/Textures/ToReplace/grass_block_side.png
+Type: !ColorTextureType
+    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
