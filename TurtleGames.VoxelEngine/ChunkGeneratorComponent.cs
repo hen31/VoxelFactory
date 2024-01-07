@@ -57,6 +57,7 @@ public class ChunkGeneratorComponent : SyncScript
 
     public void GenerateChunk(ChunkData chunkData)
     {
+        Random tempRandom = new Random();
         float scale = 0.35f;
         var chunkPosition = new Vector2(chunkData.Position.X, chunkData.Position.Y) * ChunkSize;
         for (int x = 0; x < ChunkSize.X; x++)
@@ -66,12 +67,13 @@ public class ChunkGeneratorComponent : SyncScript
             {
                 float zPosition = (z + chunkPosition.Y);
 
-                int baseHeight = 100 + Continentalness.GetValue(xPosition, zPosition) + Errosion.GetValue(xPosition,zPosition);
+                int baseHeight = 100 + Continentalness.GetValue(xPosition, zPosition) +
+                                 Errosion.GetValue(xPosition, zPosition);
                 for (int y = 0; y < ChunkHeight; y++)
                 {
                     if (y < baseHeight)
                     {
-                        chunkData.Chunk[x, y, z] = 1;
+                        chunkData.Chunk[x, y, z] = tempRandom.Next(0, 100) < 50 ? (ushort)1 : (ushort)2;
                     }
                     else
                     {
@@ -137,8 +139,8 @@ public class ChunkGeneratorComponent : SyncScript
 
     public override void Cancel()
     {
-        _cancellationToken.Cancel();
-        _cancellationToken.Dispose();
+        _cancellationToken?.Cancel();
+        _cancellationToken?.Dispose();
     }
 
     public void RunCalculations()

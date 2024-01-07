@@ -46,6 +46,15 @@ public class ChunkSystemComponent : SyncScript
             Name = "Dirt",
             BlockTexture = new BlockTextureInfo()
             {
+                DefaultTexture = "dirt.png"
+            }
+        },
+        new BlockType()
+        {
+            BlockId = 3,
+            Name = "Grass",
+            BlockTexture = new BlockTextureInfo()
+            {
                 DefaultTexture = "dirt.png",
                 TopTexture = "grass_block_top.png"
             }

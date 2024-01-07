@@ -29,7 +29,7 @@ public class ChunkVisualsGeneratorComponent : StartupScript
 
     public override void Cancel()
     {
-        _cancellationToken.Cancel();
+        _cancellationToken?.Cancel();
     }
 
     private void RunCalculationThread(CancellationToken token)

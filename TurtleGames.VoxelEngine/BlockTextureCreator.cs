@@ -9,7 +9,7 @@ namespace TurtleGames.VoxelEngine;
 
 public class BlockTextureCreator
 {
-    private float _textureSize = 256f;
+    private int _textureSize = 256;
     private readonly List<BlockType> _blockTypes;
 
     private string _textureFolder = @"C:\Users\hendr\Documents\my games\VoxelFactory\textures\";
@@ -47,11 +47,11 @@ public class BlockTextureCreator
                 {
                     for (int y = 0; y < _textureSize; y++)
                     {
-                        var textureX = (int)(imageX * _textureSize) + x;
-                        var textureY = (int)(imageY * _textureSize) + y;
+                        var textureX = (imageX * _textureSize) + x;
+                        var textureY = (imageY * _textureSize) + y;
                         fullTextureImage.PixelBuffer[0]
-                            .SetPixel<int>(textureX, textureY,
-                                textureForBlock.PixelBuffer[0].GetPixel<int>(textureX, textureY));
+                            .SetPixel(textureX, textureY,
+                                textureForBlock.PixelBuffer[0].GetPixel<int>(x, y));
                     }
                 }
 
@@ -91,6 +91,8 @@ public class BlockTextureCreator
 
         /*    var pixelBuffer = image.PixelBuffer[0];
             pixelBuffer.SetPixels(pixelBuffer.GetPixels<Pixeld>());*/
+
+        fullTextureImage.Save(File.OpenWrite("C:\\Development\\Noises\\atlas.png"), ImageFileType.Png);
         return fullTextureImage;
     }
 }
