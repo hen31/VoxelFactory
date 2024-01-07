@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Stride.Core;
 using Stride.Core.Mathematics;
 using Stride.Engine;
+using Stride.Graphics;
 using Stride.Rendering;
+using Stride.Rendering.Materials;
 
 namespace TurtleGames.VoxelEngine;
 
@@ -26,11 +29,40 @@ public class ChunkSystemComponent : SyncScript
 
     private List<ChunkVisual> _currentVisuals = new List<ChunkVisual>();
 
+    [DataMemberIgnore] public List<BlockType> BlockTypes = new List<BlockType>()
+    {
+        new BlockType()
+        {
+            BlockId = 1,
+            Name = "Stone",
+            BlockTexture = new BlockTextureInfo()
+            {
+                DefaultTexture = "stone.png"
+            }
+        },
+        new BlockType()
+        {
+            BlockId = 2,
+            Name = "Dirt",
+            BlockTexture = new BlockTextureInfo()
+            {
+                DefaultTexture = "dirt.png",
+                TopTexture = "grass_block_top.png"
+            }
+        }
+    };
+
     public override void Start()
     {
+        var material =
+            new BlockTextureCreator(BlockTypes).CreateBlockTextureAtlas(
+                out Dictionary<ushort, BlockTextureUvMapping> blockMapping);
+        var texture = Texture.New(GraphicsDevice, material);
+        BlockMaterial.Passes[0].Parameters.Set(MaterialKeys.DiffuseMap, texture);
         _cameraTransform = Camera.Entity.Get<TransformComponent>();
         _chunkGenerator = Entity.Get<ChunkGeneratorComponent>();
         _chunkVisualGenerator = Entity.Get<ChunkVisualsGeneratorComponent>();
+        _chunkVisualGenerator.BlockUvMapping = blockMapping;
         _chunkSize = _chunkGenerator.ChunkSize;
     }
 
@@ -64,7 +96,6 @@ public class ChunkSystemComponent : SyncScript
                 var newPosition = new ChunkVector(x, y);
                 var chunkData = GetChunkAt(newPosition);
 
-        
 
                 var currentVisual = _currentVisuals.FirstOrDefault(b => b.ChunkData == chunkData);
                 if (currentVisual != null)
@@ -78,7 +109,7 @@ public class ChunkSystemComponent : SyncScript
                     neighbours[1] = GetChunkAt(new ChunkVector(x + 1, y));
                     neighbours[2] = GetChunkAt(new ChunkVector(x, y - 1));
                     neighbours[3] = GetChunkAt(new ChunkVector(x - 1, y));
-                    
+
                     var visualizationEntity = new Entity("chunkVisual",
                         new Vector3(x * _chunkSize.X * VoxelSize, -_chunkGenerator.ChunkHeight / 2f * VoxelSize,
                             y * _chunkSize.Y * VoxelSize));
@@ -88,13 +119,12 @@ public class ChunkSystemComponent : SyncScript
                         Material = BlockMaterial,
                         VoxelSize = VoxelSize,
                         GeneratorComponent = _chunkVisualGenerator,
-                        Neighbours =  neighbours
+                        Neighbours = neighbours
                     };
                     visualizationEntity.Add(chunkVisualization);
                     Entity.Scene.Entities.Add(visualizationEntity);
                     _currentVisuals.Add(chunkVisualization);
                 }
-                
             }
         }
 

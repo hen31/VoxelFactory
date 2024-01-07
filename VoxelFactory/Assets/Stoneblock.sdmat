@@ -8,6 +8,7 @@ Attributes:
             Texture: 5aa67531-df6c-403a-b107-28606c8008ed:Textures/ToReplace/stone
             FallbackValue:
                 Value: {R: 0.28235295, G: 0.7411765, B: 0.0, A: 1.0}
+            Filtering: Point
             Scale: {X: 1.0, Y: 1.0}
             Offset: {X: 0.0, Y: 0.0}
             Swizzle: null
