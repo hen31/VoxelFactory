@@ -8,6 +8,7 @@ using Stride.Core.Mathematics;
 using Stride.Input;
 using Stride.Engine;
 using Stride.Graphics;
+using Stride.Physics;
 using Stride.Rendering;
 
 namespace TurtleGames.VoxelEngine
@@ -28,8 +29,9 @@ namespace TurtleGames.VoxelEngine
         {
         }
 
-        private void GenerateVisuals(List<VertexPositionNormalTexture> vertices, List<int> indexes)
+        private void GenerateVisuals(List<VertexPositionNormalTexture> vertices, List<int> indexes, out Model model)
         {
+            model = null;
             var modelComponent = Entity.GetOrCreate<ModelComponent>();
             modelComponent.IsShadowCaster = true;
 
@@ -69,7 +71,7 @@ namespace TurtleGames.VoxelEngine
                 BoundingBox = boundingBox
             };
 
-            var model = new Model();
+            model = new Model();
             // add the mesh to the model
             model.Meshes.Add(customMesh);
             model.BoundingBox = boundingBox;
@@ -97,7 +99,13 @@ namespace TurtleGames.VoxelEngine
             else
             {
                 _hasModel = true;
-                GenerateVisuals(_request.VisualsData.Vertexes, _request.VisualsData.Indexes);
+                GenerateVisuals(_request.VisualsData.Vertexes, _request.VisualsData.Indexes, out Model model);
+               var colliderShape = new StaticMeshColliderShape(
+                    _request.VisualsData.Vertexes.Select(b => b.Position).ToList(),
+                    _request.VisualsData.Indexes);
+                var staticCollider =   new StaticColliderComponent();
+                staticCollider.ColliderShape = colliderShape;
+                Entity.Add(staticCollider);
                 _request = null;
             }
         }

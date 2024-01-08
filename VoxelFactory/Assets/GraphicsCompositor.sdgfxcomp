@@ -177,10 +177,6 @@ SharedRenderers:
         AmbientOcclusion:
             Enabled*: true
             NumberOfSamples*: 50
-            ParamProjScale*: 1.0
-            ParamIntensity*: 0.3
-            ParamRadius*: 1.5
-            EdgeSharpness*: 1.0
         LocalReflections:
             Enabled: false
             ResolvePassResolution: Full

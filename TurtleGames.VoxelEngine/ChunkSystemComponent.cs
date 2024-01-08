@@ -91,7 +91,7 @@ public class ChunkSystemComponent : SyncScript
             }
         }
 
-        var currentPositionInChunkPositions = ToChunkPosition(_cameraTransform.Position);
+        var currentPositionInChunkPositions = ToChunkPosition(_cameraTransform.LocalToWorld(Vector3.Zero));
         var toDelete = _currentVisuals.ToList();
 
         for (int x = (int)currentPositionInChunkPositions.X - Radius;

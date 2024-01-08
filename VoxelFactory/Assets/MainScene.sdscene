@@ -6,14 +6,12 @@ ChildrenIds: []
 Offset: {X: 0.0, Y: 0.0, Z: 0.0}
 Hierarchy:
     RootParts:
-        - ref!! 38e7d61c-d827-4bec-88d8-7c25367969eb
         - ref!! c5727716-9b89-45a5-a3cc-5854921c5584
         - ref!! aa3faa85-71b6-4af8-9a16-3b2a836304f4
-        - ref!! 4749fe22-faaa-4136-9011-2337b0990e2c
-        - ref!! b1a43773-4c88-4c3d-8544-5faca1fee913
         - ref!! 4164c470-4779-4e4e-ab5a-39c5ebe11742
         - ref!! c78d1eba-b594-4ef1-b4d7-9bfe1be37f49
         - ref!! a0a738b9-1fe1-472a-aeab-f8248153460c
+        - ref!! c6917dc7-ae72-4f57-84a0-700e00a3f84c
     Parts:
         -   Entity:
                 Id: 38e7d61c-d827-4bec-88d8-7c25367969eb
@@ -21,7 +19,7 @@ Hierarchy:
                 Components:
                     73e982da6ddb73264b8a65fdc4b3ed2d: !TransformComponent
                         Id: fe2ec7dc-9d43-4378-a1b9-f9caec9c6be1
-                        Position: {X: 2.6, Y: 0.6, Z: -1.0}
+                        Position: {X: 0.0, Y: 2.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
@@ -30,15 +28,6 @@ Hierarchy:
                         Name: null
                         Projection: Perspective
                         Slot: 876034ca-217a-40b0-aabd-d56de1b52c6c
-                    6cb07d0847f47780e9881f3a631f9e9c: !VoxelFactory.BasicCameraController,VoxelFactory
-                        Id: bc865375-80a3-4e63-93e8-75421e313192
-                        Gamepad: false
-                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
-                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
-                        SpeedFactor: 25.0
-                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0}
-                        MouseRotationSpeed: {X: 1.0, Y: 1.0}
-                        TouchRotationSpeed: {X: 1.0, Y: 0.7}
         -   Entity:
                 Id: 4164c470-4779-4e4e-ab5a-39c5ebe11742
                 Name: GameProfiler
@@ -57,22 +46,6 @@ Hierarchy:
                         SortingMode: ByTime
                         FilteringMode: GpuEvents
                         ResultPage: 1
-        -   Entity:
-                Id: 4749fe22-faaa-4136-9011-2337b0990e2c
-                Name: Ground
-                Components:
-                    cc53ec923351d0c7a8afef8d0b2439d9: !TransformComponent
-                        Id: ea8be109-5832-4c28-a8a2-b4ff33205b74
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    35f77042edf18b87a7c6a9a042b75a97: !ModelComponent
-                        Id: 7fc660bb-db0d-40da-b57b-53292ea719f9
-                        Enabled: false
-                        Model: b13eef01-ac5f-42f0-919d-5b684156df73:Ground
-                        Materials:
-                            6a5db4fdc59ace9e4f81af78db242de4~0: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
         -   Entity:
                 Id: a0a738b9-1fe1-472a-aeab-f8248153460c
                 Name: VoxelGameState
@@ -104,34 +77,6 @@ Hierarchy:
                         Type: !LightSkybox
                             Skybox: d79d7d1f-e789-4f1f-b274-ddaf37ae415f:Skybox
         -   Entity:
-                Id: b1a43773-4c88-4c3d-8544-5faca1fee913
-                Name: Sphere
-                Components:
-                    2fd638d9ba7131f2ef61ac8ea41e1807: !TransformComponent
-                        Id: 9ba22ba9-4af8-4c75-b8cb-4d1fad5fb0a9
-                        Position: {X: 1.0, Y: 7.821848, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    15434b51bc617d997c18d9b2e37fba7b: !ModelComponent
-                        Id: 00845597-7d91-486d-b0ab-546c951e170f
-                        Enabled: false
-                        Model: f610a7c3-e281-4ec7-9168-0b6a05fe18ce:Sphere
-                        IsShadowCaster: false
-                        Materials:
-                            52a4a0ed9935df51b080974ed307d739~0: 9490fa3b-7b0c-485b-80de-114126e16115:CubeMaterial
-                    966d5ce83d3241bb0f62d43eb6134d26: !ParticleSystemComponent
-                        Id: 90ac733e-30d4-48a1-b439-1f3b52b00ce0
-                        Control:
-                            ResetSeconds: 5.0
-                            Control: Play
-                        Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-                        Speed: 1.0
-                        ParticleSystem:
-                            Settings: {}
-                            BoundingShape: null
-                            Emitters: {}
-        -   Entity:
                 Id: c5727716-9b89-45a5-a3cc-5854921c5584
                 Name: Directional light
                 Components:
@@ -153,6 +98,46 @@ Hierarchy:
                                 ComputeTransmittance: false
                                 BiasParameters: {}
         -   Entity:
+                Id: c6917dc7-ae72-4f57-84a0-700e00a3f84c
+                Name: VoxelFactoryCharacter
+                Components:
+                    d26a171aae16c7d539973d9970d3c0f0: !TransformComponent
+                        Id: 9e99f55a-34c5-4dc1-a76c-d26e757a5cdf
+                        Position: {X: 40.0, Y: 45.0, Z: -80.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            6b31edb146d1ad35dd8e5dde70ce33b2: ref!! fe2ec7dc-9d43-4378-a1b9-f9caec9c6be1
+                    d9b5f76c5434c51dbcd117720ead9919: !VoxelFactory.Source.Character.VoxelFactoryCharacter,VoxelFactory
+                        Id: b718caa3-676d-4f13-8583-bbce15749202
+                    5fca959148e06452fdc8b2dd39701b82: !ModelComponent
+                        Id: b3b878eb-b602-4001-899e-42e8ccb77ca8
+                        Model: 2dcfcae0-ebeb-4090-b85d-fa7168dc1566:Capsule
+                        Materials: {}
+                    6c3893aa76269dedc7b3621ba4f48c44: !CharacterComponent
+                        Id: d97c9cd2-2378-42ed-9f72-d1c3922f546c
+                        CanSleep: false
+                        Restitution: 0.0
+                        Friction: 10000000.0
+                        RollingFriction: 10000000.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        StepHeight: 0.5
+                        FallSpeed: 10.0
+                        MaxSlope: {Radians: 0.7853982}
+                        JumpSpeed: 5.0
+                        Gravity: {X: 0.0, Y: -10.0, Z: 0.0}
+                        ColliderShapes:
+                            48bd1dc07abc0db2b63ec39f2885f043: !CapsuleColliderShapeDesc
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                    dcaf71b30f0e99326725d559238345fc: !VoxelFactory.Source.Character.CharacterInputComponent,VoxelFactory
+                        Id: 29e1b5ca-36c7-4d7f-a942-9d8e4da69852
+                        Speed: 500.0
+                        CameraEntity: ref!! 38e7d61c-d827-4bec-88d8-7c25367969eb
+                        RotationAdaptationSpeed: 5.0
+                        RotationSpeed: 2.355
+        -   Entity:
                 Id: c78d1eba-b594-4ef1-b4d7-9bfe1be37f49
                 Name: ChunkSystem
                 Components:
@@ -166,7 +151,7 @@ Hierarchy:
                         Id: cb8e03b3-7109-493f-b772-48249f1579d3
                         Camera: ref!! ce0590e9-2579-4a57-a8cf-edcd0cf25dfd
                         GameState: ref!! 0d38902d-47a3-4d4c-a55e-fed50074d1fc
-                        Radius: 12
+                        Radius: 16
                         VoxelSize: 1.0
                         OnlyInitialGeneration: false
                         BlockMaterial: 6bc8b0c0-4bd1-4470-b96b-3e481e672ad0:Stoneblock
