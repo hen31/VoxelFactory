@@ -100,14 +100,30 @@ namespace TurtleGames.VoxelEngine
             {
                 _hasModel = true;
                 GenerateVisuals(_request.VisualsData.Vertexes, _request.VisualsData.Indexes, out Model model);
-               var colliderShape = new StaticMeshColliderShape(
+
+                var staticColliderComponent = Entity.Get<StaticColliderComponent>();
+                var colliderShape = new StaticMeshColliderShape(
                     _request.VisualsData.Vertexes.Select(b => b.Position).ToList(),
                     _request.VisualsData.Indexes);
-                var staticCollider =   new StaticColliderComponent();
-                staticCollider.ColliderShape = colliderShape;
-                Entity.Add(staticCollider);
+                if (staticColliderComponent == null)
+                {
+                    var staticCollider = new StaticColliderComponent();
+                    staticCollider.ColliderShape = colliderShape;
+                    Entity.Add(staticCollider);
+                }
+                else
+                {
+                    staticColliderComponent.ColliderShape = colliderShape;
+                }
+
                 _request = null;
             }
+        }
+
+        public void Remesh()
+        {
+            _hasModel = false;
+            _request = null;
         }
     }
 }

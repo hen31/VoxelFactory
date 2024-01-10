@@ -1,4 +1,5 @@
 ﻿using System;
+using Stride.Core.Mathematics;
 
 namespace TurtleGames.VoxelEngine;
 
@@ -32,6 +33,15 @@ public struct ChunkVector
         return HashCode.Combine(X, Y);
     }
 
+    public static ChunkVector operator *(ChunkVector vector, float amount)
+    {
+        return new ChunkVector((int)vector.X * (int)amount, (int)vector.Y * (int)amount);
+    }
+    public static ChunkVector operator *(ChunkVector vector, Vector2 vector2)
+    {
+        return new ChunkVector((int)vector.X * (int)vector2.X, (int)vector.Y * (int)vector2.Y);
+    }
+
     public static bool operator ==(ChunkVector left, ChunkVector right)
     {
         return left.Equals(right);
@@ -40,5 +50,10 @@ public struct ChunkVector
     public static bool operator !=(ChunkVector left, ChunkVector right)
     {
         return !(left == right);
+    }
+
+    public Vector3 ToVector3()
+    {
+        return new Vector3(X, 0, Y);
     }
 }

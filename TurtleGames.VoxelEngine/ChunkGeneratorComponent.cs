@@ -67,8 +67,8 @@ public class ChunkGeneratorComponent : SyncScript
             {
                 float zPosition = (z + chunkPosition.Y);
 
-                int baseHeight = 100 + Continentalness.GetValue(xPosition, zPosition) +
-                                 Errosion.GetValue(xPosition, zPosition);
+                int baseHeight = 100; /*+ Continentalness.GetValue(xPosition, zPosition) +
+                                 Errosion.GetValue(xPosition, zPosition);*/
                 for (int y = 0; y < ChunkHeight; y++)
                 {
                     if (y < baseHeight)

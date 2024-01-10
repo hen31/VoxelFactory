@@ -164,4 +164,25 @@ public class ChunkSystemComponent : SyncScript
         int y = (int)MathF.Round(cameraTransformPosition.Z / _chunkSize.Y / VoxelSize);
         return new Vector2(x, y);
     }
+
+    public (ChunkVector Chunk, Vector3 Block, ChunkData ChunkData) PointToChunkPosition(Vector3 point)
+    {
+        var chunkPosition = ToChunkPosition(point).ToChunkVector();
+        var inChunkPosition = PointToInChunkPosition(point, chunkPosition);
+        var chunkData = GetChunkAt(chunkPosition);
+
+        return (chunkPosition, inChunkPosition, chunkData);
+    }
+
+    private Vector3 PointToInChunkPosition(Vector3 point, ChunkVector chunkPosition)
+    {
+        var pointInSideChunk = point - (chunkPosition * _chunkSize * VoxelSize).ToVector3() +
+                               new Vector3(_chunkGenerator.ChunkSize.X / 2f, _chunkGenerator.ChunkHeight / 2f,
+                                   _chunkGenerator.ChunkSize.Y / 2f);
+
+        int x = (int)MathF.Round(pointInSideChunk.X / VoxelSize) - 1;
+        int y = (int)MathF.Round(pointInSideChunk.Y / VoxelSize) - 1;
+        int z = (int)MathF.Round(pointInSideChunk.Z / VoxelSize) - 1;
+        return new Vector3(x, y, z);
+    }
 }
