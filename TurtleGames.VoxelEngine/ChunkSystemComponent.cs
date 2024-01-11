@@ -179,10 +179,10 @@ public class ChunkSystemComponent : SyncScript
         var pointInSideChunk = point - (chunkPosition * _chunkSize * VoxelSize).ToVector3() +
                                new Vector3(_chunkGenerator.ChunkSize.X / 2f, _chunkGenerator.ChunkHeight / 2f,
                                    _chunkGenerator.ChunkSize.Y / 2f);
-
-        int x = (int)MathF.Round(pointInSideChunk.X / VoxelSize) - 1;
-        int y = (int)MathF.Round(pointInSideChunk.Y / VoxelSize) - 1;
-        int z = (int)MathF.Round(pointInSideChunk.Z / VoxelSize) - 1;
+        
+        int x = (int)(pointInSideChunk.X / VoxelSize);
+        int y = (int)(pointInSideChunk.Y / VoxelSize);
+        int z = (int)(pointInSideChunk.Z / VoxelSize);
         return new Vector3(x, y, z);
     }
 }

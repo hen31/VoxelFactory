@@ -103,7 +103,7 @@ Hierarchy:
                     d26a171aae16c7d539973d9970d3c0f0: !TransformComponent
                         Id: 9e99f55a-34c5-4dc1-a76c-d26e757a5cdf
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Rotation: {X: -0.0, Y: -0.76604444, Z: 0.0, W: 0.64278764}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
                             6b31edb146d1ad35dd8e5dde70ce33b2: ref!! fe2ec7dc-9d43-4378-a1b9-f9caec9c6be1
