@@ -37,6 +37,7 @@ public class ChunkVisualsGeneratorComponent : StartupScript
         while (!token.IsCancellationRequested)
         {
             DoCalculation();
+       
         }
     }
 
@@ -52,6 +53,10 @@ public class ChunkVisualsGeneratorComponent : StartupScript
                 BlockUvMapping);
             request.VisualsData = chunkVisualData;
             request.IsCalculated = true;
+        }
+        else
+        {
+            Thread.Sleep(1);
         }
     }
 

@@ -10,6 +10,7 @@ Hierarchy:
         - ref!! aa3faa85-71b6-4af8-9a16-3b2a836304f4
         - ref!! 4164c470-4779-4e4e-ab5a-39c5ebe11742
         - ref!! a0a738b9-1fe1-472a-aeab-f8248153460c
+        - ref!! c78d1eba-b594-4ef1-b4d7-9bfe1be37f49
         - ref!! c6917dc7-ae72-4f57-84a0-700e00a3f84c
     Parts:
         -   Entity:
@@ -102,12 +103,11 @@ Hierarchy:
                 Components:
                     d26a171aae16c7d539973d9970d3c0f0: !TransformComponent
                         Id: 9e99f55a-34c5-4dc1-a76c-d26e757a5cdf
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: -0.0, Y: -0.76604444, Z: 0.0, W: 0.64278764}
+                        Position: {X: 0.0, Y: 50.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
                             6b31edb146d1ad35dd8e5dde70ce33b2: ref!! fe2ec7dc-9d43-4378-a1b9-f9caec9c6be1
-                            fc128c79421bceb88af8e1758ded265c: ref!! a3af20f3-cc99-4728-8487-aed45f2fc572
                     d9b5f76c5434c51dbcd117720ead9919: !VoxelFactory.Source.Character.VoxelFactoryCharacter,VoxelFactory
                         Id: b718caa3-676d-4f13-8583-bbce15749202
                         ChunkSystemComponent: ref!! cb8e03b3-7109-493f-b772-48249f1579d3

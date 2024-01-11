@@ -179,10 +179,46 @@ public class ChunkSystemComponent : SyncScript
         var pointInSideChunk = point - (chunkPosition * _chunkSize * VoxelSize).ToVector3() +
                                new Vector3(_chunkGenerator.ChunkSize.X / 2f, _chunkGenerator.ChunkHeight / 2f,
                                    _chunkGenerator.ChunkSize.Y / 2f);
-        
+
         int x = (int)(pointInSideChunk.X / VoxelSize);
         int y = (int)(pointInSideChunk.Y / VoxelSize);
         int z = (int)(pointInSideChunk.Z / VoxelSize);
         return new Vector3(x, y, z);
+    }
+
+    public void DestroyBlock(ChunkData chunkData, (ChunkVector Chunk, Vector3 Block, ChunkData ChunkData) point)
+    {
+        chunkData.Chunk[(int)point.Block.X, (int)point.Block.Y, (int)point.Block.Z] = 0;
+        _currentVisuals.FirstOrDefault(b =>
+            b.ChunkData.Position.X == chunkData.Position.X && b.ChunkData.Position.Y == chunkData.Position.Y)?.Remesh();
+        if ((int)point.Block.X == 0)
+        {
+            _currentVisuals.FirstOrDefault(b =>
+                    b.ChunkData.Position.X == chunkData.Position.X - 1 &&
+                    b.ChunkData.Position.Y == chunkData.Position.Y)
+                ?.Remesh();
+        }
+        else if ((int)point.Block.X == (int)_chunkSize.X - 1)
+        {
+            _currentVisuals.FirstOrDefault(b =>
+                    b.ChunkData.Position.X == chunkData.Position.X + 1 &&
+                    b.ChunkData.Position.Y == chunkData.Position.Y)
+                ?.Remesh();
+        }
+
+        if ((int)point.Block.Z == 0)
+        {
+            _currentVisuals.FirstOrDefault(b =>
+                    b.ChunkData.Position.X == chunkData.Position.X &&
+                    b.ChunkData.Position.Y == chunkData.Position.Y - 1)
+                ?.Remesh();
+        }
+        else if ((int)point.Block.Z == (int)_chunkSize.Y - 1)
+        {
+            _currentVisuals.FirstOrDefault(b =>
+                    b.ChunkData.Position.X == chunkData.Position.X &&
+                    b.ChunkData.Position.Y == chunkData.Position.Y + 1)
+                ?.Remesh();
+        }
     }
 }

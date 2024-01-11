@@ -38,19 +38,17 @@ public class VoxelFactoryCharacter : SyncScript
                     var hitPoint = raycastResult.Point;
                     hitPoint -= raycastResult.Normal * 0.5f;
                     var point = ChunkSystemComponent.PointToChunkPosition(hitPoint);
-               
-                    var chunkData = point.ChunkData;
                     var chunkDataFromRay = raycastResult.Collider.Entity.Get<ChunkVisual>().ChunkData;
+
+                    ChunkSystemComponent.DestroyBlock(chunkDataFromRay, point);
 
                     /*   for (int x = 0; x < 16; x++)
                        {
                            for (int y = 0; y < 16; y++)
                            {*/
-                    chunkDataFromRay.Chunk[(int)point.Block.X, (int)point.Block.Y, (int)point.Block.Z] = 0;
                     /*     }
                      }*/
 
-                    raycastResult.Collider.Entity.Get<ChunkVisual>().Remesh();
                 }
             }
         }
