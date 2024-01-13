@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Stride.CommunityToolkit.Engine;
 using Stride.Core.Mathematics;
 using Stride.Engine;
 using Stride.Input;
@@ -28,26 +27,18 @@ public class VoxelFactoryCharacter : SyncScript
             if (Input.IsMouseButtonPressed(MouseButton.Left))
             {
                 var raycastResult = ScreenPositionToWorldPositionRaycast(new Vector2(0.5f, 0.5f), camera, _simulation);
-                /*camera.Raycast(this,
-                camera.ScreenToWorldPoint(new Vector3(Game.Window.ClientBounds.X / 2f,
-                    Game.Window.ClientBounds.Y / 2f, 0f)).XZ(),
-                collisionFilterGroupFlags: CollideWithGroup);*/
 
                 if (raycastResult.Succeeded)
                 {
                     var hitPoint = raycastResult.Point;
                     hitPoint -= raycastResult.Normal * 0.5f;
                     var point = ChunkSystemComponent.PointToChunkPosition(hitPoint);
-                    var chunkDataFromRay = raycastResult.Collider.Entity.Get<ChunkVisual>().ChunkData;
-
+                    var chunkDataFromRay = raycastResult.Collider.Entity.Get<ChunkVisual>()?.ChunkData;
+                    if (chunkDataFromRay == null)
+                    {
+                        return;
+                    }
                     ChunkSystemComponent.DestroyBlock(chunkDataFromRay, point);
-
-                    /*   for (int x = 0; x < 16; x++)
-                       {
-                           for (int y = 0; y < 16; y++)
-                           {*/
-                    /*     }
-                     }*/
 
                 }
             }

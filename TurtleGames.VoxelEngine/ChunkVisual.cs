@@ -69,6 +69,7 @@ namespace TurtleGames.VoxelEngine
                     },
                 },
                 BoundingBox = boundingBox
+                
             };
 
             model = new Model();
@@ -78,6 +79,8 @@ namespace TurtleGames.VoxelEngine
             modelComponent.Model = model;
 
             model.Materials.Add(Material);
+
+            modelComponent.IsShadowCaster = true;
         }
 
 
